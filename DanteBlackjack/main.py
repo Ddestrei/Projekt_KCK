@@ -4,7 +4,16 @@ from EkranStartowyDante import *
 from EkranStartuGry import *
 from EkranWyborStolu import *
 from EkranLogowania import *
-window = pygame.display.set_mode((800, 600)) #zmienic ilosc pikseli
+
+resolutions = [(874, 620), (1166, 826), (1457, 1033)]
+
+print("Wybierz rozdzielczość aby rozpocząć:")
+for i, res in enumerate(resolutions):
+    print(f"{i + 1}. {res[0]}x{res[1]}")
+
+choice = int(input("Twój wybór: ")) - 1
+
+window = pygame.display.set_mode(resolutions[choice])
 
 ekran_logowania = EkranLogowania()
 ekran_startowy_dante = EkranStartowyDante()

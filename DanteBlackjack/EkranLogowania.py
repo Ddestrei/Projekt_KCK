@@ -9,4 +9,8 @@ class EkranLogowania:
         background = pygame.transform.scale(background, (resolutions[choice]))
         window.blit(background, (0, 0))
         button_log.tool_draw(window)
+        username.tool_draw(window)
+        username.render_text(window)
+        password.tool_draw(window)
+        password.render_text(window)
         pygame.display.update()

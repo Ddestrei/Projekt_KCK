@@ -31,3 +31,4 @@ button_0 = Button(50,50)
 button_1 = Button(600,50)
 button_2 = Button(50,400)
 button_3 = Button(600,400)
+resolutions = [(874, 620), (1166, 826), (1457, 1033)]

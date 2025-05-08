@@ -5,8 +5,6 @@ from EkranStartuGry import *
 from EkranWyborStolu import *
 from EkranLogowania import *
 
-resolutions = [(874, 620), (1166, 826), (1457, 1033)]
-
 print("Wybierz rozdzielczość aby rozpocząć:")
 for i, res in enumerate(resolutions):
     print(f"{i + 1}. {res[0]}x{res[1]}")
@@ -27,7 +25,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    current_screen.Start(window)
+    current_screen.Start(window, choice)
     #ekran logowania
     if button_log.button_click() and current_screen == ekran_logowania:
         current_screen = ekran_startowy_dante

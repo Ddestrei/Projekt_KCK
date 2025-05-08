@@ -5,7 +5,7 @@ from Button import *
 class EkranStartowyDante:
     def __init__(self):
         self.punkty_pomocy = 10 #tymczasowe
-    def Start(self, window):
+    def Start(self, window, choice):
         pygame.time.Clock().tick(60)
         window.fill((255, 255, 255)) #tymczasowe
         button_0.button_draw(window)

@@ -1,19 +1,23 @@
-class OneClientConnection:
-    def __init__(self):
-        self.is_connected = False
+import threading
 
-    def run_client(self, conn, address):
-        # accept new connection
+
+class OneClientConnection:
+
+    def __init__(self, conn, address):
+        self.is_connected = False
+        self.client_id = ""
+        self.conn = conn
+        self.address = address
         print("Connection from: " + str(address))
         self.is_connected = True
-        while True:
-            # receive data stream. it won't accept data packet greater than 1024 bytes
-            data = conn.recv(1024).decode()
-            if not data:
-                # if data is not received break
-                break
-            print("from connected user: " + str(data))
-            data = input(' -> ')
-            conn.send(data.encode())  # send data to the client
+        receiver_thread = threading.Thread(target=self.receiver)
+        receiver_thread.start()
 
-        conn.close()  # close the connection
+    def receiver(self):
+        while self.is_connected:
+            mess = str(self.conn.recv(1024).decode())
+            print(mess)
+            self.sender(mess)
+
+    def sender(self, message):
+        self.conn.send(message.encode())

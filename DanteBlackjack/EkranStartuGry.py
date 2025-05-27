@@ -1,8 +1,8 @@
 import pygame
 pygame.init()
-from Button import *
+from Screen import *
 
-class EkranStartuGry:
+class EkranStartuGry(Screen):
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
         window.fill((255, 0, 255)) #tymczasowe

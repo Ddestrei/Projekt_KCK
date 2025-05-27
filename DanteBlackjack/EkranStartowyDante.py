@@ -1,8 +1,8 @@
 import pygame
 pygame.init()
-from Button import *
+from Screen import *
 
-class EkranStartowyDante:
+class EkranStartowyDante(Screen):
     def __init__(self):
         self.punkty_pomocy = 10 #tymczasowe
     def Start(self, window, choice):

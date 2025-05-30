@@ -2,8 +2,10 @@ import socket
 import threading
 
 from OneClientConnection import OneClientConnection
+from DataBase import DataBase
 
 if __name__ == "__main__":
+    database = DataBase()
     host = socket.gethostname()
     port = 5000  # initiate port no above 1024
     clients = []

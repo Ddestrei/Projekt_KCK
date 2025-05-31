@@ -46,9 +46,12 @@ class Button:
         action = False
         mouse_pos = pygame.mouse.get_pos()
 
+        if self.enabled:
+            self.image = self.hover_image if self.rect.collidepoint(mouse_pos) else self.base_image
+        else:
+            self.image = self._dim_image(self.base_image)
 
         screen.blit(self.image, (self.rect.x, self.rect.y))
-
 
         if self.enabled and pygame.mouse.get_pressed()[0] and self.rect.collidepoint(mouse_pos):
             if not self.clicked:
@@ -58,5 +61,13 @@ class Button:
             self.clicked = False
 
         return action
+
+    def set_enabled(self, value: bool):
+        self.enabled = value
+
+    def _dim_image(self, image):
+        dimmed = image.copy()
+        dimmed.fill((180, 180, 180, 200), None, pygame.BLEND_RGBA_MULT)
+        return dimmed
 
 

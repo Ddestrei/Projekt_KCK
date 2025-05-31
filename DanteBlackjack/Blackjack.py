@@ -30,3 +30,33 @@ def scale_position(x, y, choice):
 screenWidth, screenHeight = 1457, 1033
 screenWidth,screenHeight = scale_position(screenWidth,screenHeight,choice)
 screen = pygame.display.set_mode((screenWidth,screenHeight))
+
+class Button:
+    def __init__(self, x, y, image, scale=1, hover_image=None, enabled=True):
+        width = image.get_width()
+        height = image.get_height()
+        self.base_image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+        self.hover_image = pygame.transform.scale(hover_image, (int(width * scale), int(height * scale))) if hover_image else self.base_image
+        self.image = self.base_image
+        self.rect = self.image.get_rect(topleft=(x, y))
+        self.clicked = False
+        self.enabled = enabled
+
+    def draw(self):
+        action = False
+        mouse_pos = pygame.mouse.get_pos()
+
+
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+
+
+        if self.enabled and pygame.mouse.get_pressed()[0] and self.rect.collidepoint(mouse_pos):
+            if not self.clicked:
+                self.clicked = True
+                action = True
+        elif not pygame.mouse.get_pressed()[0]:
+            self.clicked = False
+
+        return action
+
+

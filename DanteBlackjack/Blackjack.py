@@ -174,6 +174,21 @@ class player:
         self.count = 0
         self.bet = 0
 
+class Dealer:
+    def __init__(self):
+        self.deck = Deck()
+        self.deck.createDeck()
+        self.deck.shuffleDeck()
+        self.hand = []
+        self.low_count = 0
+        self.high_count = 0
+        self.count = 0
+        self.x = round(672*percents[choice])
+        self.y = round(450*percents[choice])
+
+
+
+
 
 
 

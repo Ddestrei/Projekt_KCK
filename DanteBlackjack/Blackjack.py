@@ -297,6 +297,19 @@ class Game:
         textHeight = textObject.get_rect().height
         surface.blit(textObject, (x - (textWidth / 2), y - (textHeight / 2)))
 
+    def delay_with_events(self,ms):
+        start_time = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - start_time < ms:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+
+
+
 
 
 

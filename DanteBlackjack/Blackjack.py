@@ -148,7 +148,7 @@ class Player:
         self.low_count = 0
         self.high_count = 0
         self.count = 0
-        self.bank = 0
+        self.bank = 1
         self.bet = 0
         self.roundsWon = 0
         self.x = 0
@@ -252,8 +252,10 @@ class Game:
     def __init__(self):
         self.dealer = Dealer()
         self.players = []
-        self.num_of_players = 1
+        self.num_of_players = 2
         self.turnOver= False
+        self.players.append(Player("Wojtek"))
+        self.players.append(Player("Michał"))
     def fixCoordinates(self):
         if self.num_of_players == 1:
             self.players[0].x = round(669*percents[choice])
@@ -318,14 +320,13 @@ class Game:
                 screen.blit(pokerGreen, (0, 0))
                 self.add_text("Player "+ str(i+1+number_of_deleted_players) +" hasn't enough points to play", text_Bold, screen, halfWidth, 100, red)
                 number_of_deleted_players+=1
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
                 pygame.display.update()
                 self.delay_with_events(1000)
-
-
                 self.players.pop(i)
                 self.num_of_players -= 1
-
-
                 if self.num_of_players == 0:
                     self.turnOver = True
                     return
@@ -370,7 +371,18 @@ class Game:
             i += 1
 
 
-
-
+gameOver = False
+while gameOver is False:
+    game = Game()
+    screen.blit(pokerGreen, (0, 0))
+    game.fixCoordinates()
+    roundOver = False
+    pygame.display.update()
+    while game.turnOver == False:
+        game.placing_bets()
+        if game.num_of_players==0:
+            gameOver = True
+        if game.turnOver ==True:
+            break
 
 

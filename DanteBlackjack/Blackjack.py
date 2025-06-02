@@ -141,14 +141,14 @@ class Deck:
 
     def shuffleDeck(self):
         return random.shuffle(self.cards)
-class player:
+class Player:
     def __init__(self,name):
         self.name = name
         self.hand = []
         self.low_count = 0
         self.high_count = 0
         self.count = 0
-        self.bank = 0
+        self.bank = 1
         self.bet = 0
         self.roundsWon = 0
         self.x = 0
@@ -223,6 +223,166 @@ text_Normal = pygame.font.SysFont(fontType, 20)
 text_Small = pygame.font.SysFont(fontType, 10)
 
 
+bet15_img = pygame.image.load("Grafika/Obiekty/bet1,5p.png")
+bet1_img = pygame.image.load("Grafika/Obiekty/bet1p.png")
+bet05_img = pygame.image.load("Grafika/Obiekty/bet0.5.png")
+hit_img = pygame.image.load("Grafika/Obiekty/hit.png")
+stand_img = pygame.image.load("Grafika/Obiekty/STAND.png")
+double_img = pygame.image.load("Grafika/Obiekty/double.png")
+bet05_button = Button(halfWidth-round(300*percents[choice]),screenHeight-round(100*percents[choice]),bet05_img,percents[choice],hover_image=brighten_surface(bet05_img))
+bet1_button = Button(halfWidth-round(100*percents[choice]),screenHeight-round(105*percents[choice]),bet1_img,percents[choice],hover_image=brighten_surface(bet1_img))
+bet15_button = Button(halfWidth+round(100*percents[choice]),screenHeight-round(102*percents[choice]),bet15_img,percents[choice],hover_image=brighten_surface(bet15_img))
+adjusted_center = halfWidth - 150 * percents[choice] + 50
+button_spacing = 160 * percents[choice]
+card_height = round(144*percents[choice])
 
+hit_button = Button(adjusted_center - button_spacing, screenHeight - 70, hit_img,percents[choice],hover_image=brighten_surface(hit_img))
+stand_button = Button(adjusted_center, screenHeight - 70, stand_img,percents[choice],hover_image=brighten_surface(stand_img))
+double_button = Button(adjusted_center + button_spacing, screenHeight - 70, double_img, percents[choice],hover_image=brighten_surface(double_img))
+card_back_img = pygame.image.load("Grafika/Karty/tyl_karty.png")
+card_back_img = pygame.transform.scale(card_back_img, (round(96 * percents[choice]), round(144 * percents[choice])))
+leave_img = pygame.image.load("Grafika/Obiekty/leave.png")
+leave_button = Button(10, 10, leave_img, round(percents[choice]*1.5))
+leave_button.set_enabled(True)
+hit_button.set_enabled(True)
+stand_button.set_enabled(True)
+double_button.set_enabled(True)
+
+class Game:
+    def __init__(self):
+        self.dealer = Dealer()
+        self.players = []
+        self.num_of_players = 2
+        self.turnOver= False
+        self.players.append(Player("Wojtek"))
+        self.players.append(Player("Michał"))
+    def fixCoordinates(self):
+        if self.num_of_players == 1:
+            self.players[0].x = round(669*percents[choice])
+            self.players[0].y = round(665*percents[choice])
+        elif self.num_of_players == 2:
+            self.players[0].x = round(669*percents[choice])
+            self.players[0].y = round(665*percents[choice])
+            self.players[1].x = round(1020*percents[choice])
+            self.players[1].y = round(650*percents[choice])
+        elif self.num_of_players == 3:
+            self.players[0].x = round(284*percents[choice])
+            self.players[0].y = round(646*percents[choice])
+            self.players[1].x = round(669*percents[choice])
+            self.players[1].y = round(665*percents[choice])
+            self.players[2].x = round(1020*percents[choice])
+            self.players[2].y = round(650*percents[choice])
+        elif self.num_of_players == 4:
+            self.players[0].x = round(294*percents[choice])
+            self.players[0].y = round(413*percents[choice])
+            self.players[1].x = round(284*percents[choice])
+            self.players[1].y = round(646*percents[choice])
+            self.players[2].x = round(669*percents[choice])
+            self.players[2].y = round(665*percents[choice])
+            self.players[3].x =  round(1020*percents[choice])
+            self.players[3].y = round(650*percents[choice])
+        elif self.num_of_players == 5:
+            self.players[0].x = round(294*percents[choice])
+            self.players[0].y = round(413*percents[choice])
+            self.players[1].x = round(284*percents[choice])
+            self.players[1].y = round(646*percents[choice])
+            self.players[2].x = round(669*percents[choice])
+            self.players[2].y = round(665*percents[choice])
+            self.players[3].x =  round(1020*percents[choice])
+            self.players[3].y = round(650*percents[choice])
+            self.players[4].x = round(1043*percents[choice])
+            self.players[4].y = round(410*percents[choice])
+
+    def add_text(self,text, font, surface, x, y, text_color):
+        textObject = font.render(text, False, text_color)
+        textWidth = textObject.get_rect().width
+        textHeight = textObject.get_rect().height
+        surface.blit(textObject, (x - (textWidth / 2), y - (textHeight / 2)))
+
+    def delay_with_events(self,ms):
+        start_time = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - start_time < ms:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+    def placing_bets(self):
+
+        i = 0
+        number_of_deleted_players = 0
+        while i < len(self.players):
+            current_player = self.players[i]
+
+            if current_player.bank < 0.5:
+                screen.blit(pokerGreen, (0, 0))
+                self.add_text("Player "+ str(i+1+number_of_deleted_players) +" hasn't enough points to play", text_Bold, screen, halfWidth, 100, red)
+                number_of_deleted_players+=1
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+                pygame.display.update()
+                self.delay_with_events(1000)
+                self.players.pop(i)
+                self.num_of_players -= 1
+                if self.num_of_players == 0:
+                    self.turnOver = True
+                    return
+                continue
+
+            bet_placed = False
+            while not bet_placed:
+                screen.blit(pokerGreen, (0, 0))
+
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+
+                self.add_text("Player's "+ str(i+1) +" turn, place your bet", text_Bold, screen, halfWidth, 100, red)
+                self.add_text("Your points: "+ str(current_player.bank), text_Normal, screen, round(150*percents[choice]), round(100*percents[choice]), orange)
+                bet05_button.set_enabled(current_player.bank >= 0.5)
+                bet1_button.set_enabled(current_player.bank >= 1)
+                bet15_button.set_enabled(current_player.bank >= 1.5)
+
+                if bet05_button.draw():
+                    current_player.bet = 0.5
+                    current_player.ready = True
+                    bet_placed = True
+
+                if bet1_button.draw():
+                    current_player.bet = 1
+                    current_player.ready = True
+                    bet_placed = True
+
+                if bet15_button.draw():
+                    current_player.bet = 1.5
+                    current_player.ready = True
+                    bet_placed = True
+
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                pygame.display.update()
+
+            i += 1
+
+
+gameOver = False
+while gameOver is False:
+    game = Game()
+    screen.blit(pokerGreen, (0, 0))
+    game.fixCoordinates()
+    roundOver = False
+    pygame.display.update()
+    while game.turnOver == False:
+        game.placing_bets()
+        if game.num_of_players==0:
+            gameOver = True
+        if game.turnOver ==True:
+            break
 
 

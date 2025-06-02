@@ -248,6 +248,50 @@ hit_button.set_enabled(True)
 stand_button.set_enabled(True)
 double_button.set_enabled(True)
 
+class Game:
+    def __init__(self):
+        self.dealer = Dealer()
+        self.players = []
+        self.num_of_players = 1
+        self.startY = 50
+        self.turnOver= False
+    def fixCoordinates(self):
+        if self.num_of_players == 1:
+            self.players[0].x = round(669*percents[choice])
+            self.players[0].y = round(665*percents[choice])
+        elif self.num_of_players == 2:
+            self.players[0].x = round(669*percents[choice])
+            self.players[0].y = round(665*percents[choice])
+            self.players[1].x = round(1020*percents[choice])
+            self.players[1].y = round(650*percents[choice])
+        elif self.num_of_players == 3:
+            self.players[0].x = round(284*percents[choice])
+            self.players[0].y = round(646*percents[choice])
+            self.players[1].x = round(669*percents[choice])
+            self.players[1].y = round(665*percents[choice])
+            self.players[2].x = round(1020*percents[choice])
+            self.players[2].y = round(650*percents[choice])
+        elif self.num_of_players == 4:
+            self.players[0].x = round(294*percents[choice])
+            self.players[0].y = round(413*percents[choice])
+            self.players[1].x = round(284*percents[choice])
+            self.players[1].y = round(646*percents[choice])
+            self.players[2].x = round(669*percents[choice])
+            self.players[2].y = round(665*percents[choice])
+            self.players[3].x =  round(1020*percents[choice])
+            self.players[3].y = round(650*percents[choice])
+        elif self.num_of_players == 5:
+            self.players[0].x = round(294*percents[choice])
+            self.players[0].y = round(413*percents[choice])
+            self.players[1].x = round(284*percents[choice])
+            self.players[1].y = round(646*percents[choice])
+            self.players[2].x = round(669*percents[choice])
+            self.players[2].y = round(665*percents[choice])
+            self.players[3].x =  round(1020*percents[choice])
+            self.players[3].y = round(650*percents[choice])
+            self.players[4].x = round(1043*percents[choice])
+            self.players[4].y = round(410*percents[choice])
+
 
 
 

@@ -307,6 +307,67 @@ class Game:
             if leave_button.draw():
                 pygame.quit()
                 sys.exit()
+    def placing_bets(self):
+
+        i = 0
+        number_of_deleted_players = 0
+        while i < len(self.players):
+            current_player = self.players[i]
+
+            if current_player.bank < 0.5:
+                screen.blit(pokerGreen, (0, 0))
+                self.add_text("Player "+ str(i+1+number_of_deleted_players) +" hasn't enough points to play", text_Bold, screen, halfWidth, 100, red)
+                number_of_deleted_players+=1
+                pygame.display.update()
+                self.delay_with_events(1000)
+
+
+                self.players.pop(i)
+                self.num_of_players -= 1
+
+
+                if self.num_of_players == 0:
+                    self.turnOver = True
+                    return
+                continue
+
+            bet_placed = False
+            while not bet_placed:
+                screen.blit(pokerGreen, (0, 0))
+
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+
+                self.add_text("Player's "+ str(i+1) +" turn, place your bet", text_Bold, screen, halfWidth, 100, red)
+                self.add_text("Your points: "+ str(current_player.bank), text_Normal, screen, round(150*percents[choice]), round(100*percents[choice]), orange)
+                bet05_button.set_enabled(current_player.bank >= 0.5)
+                bet1_button.set_enabled(current_player.bank >= 1)
+                bet15_button.set_enabled(current_player.bank >= 1.5)
+
+                if bet05_button.draw():
+                    current_player.bet = 0.5
+                    current_player.ready = True
+                    bet_placed = True
+
+                if bet1_button.draw():
+                    current_player.bet = 1
+                    current_player.ready = True
+                    bet_placed = True
+
+                if bet15_button.draw():
+                    current_player.bet = 1.5
+                    current_player.ready = True
+                    bet_placed = True
+
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                pygame.display.update()
+
+            i += 1
 
 
 

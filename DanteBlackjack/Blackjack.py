@@ -141,7 +141,7 @@ class Deck:
 
     def shuffleDeck(self):
         return random.shuffle(self.cards)
-class player:
+class Player:
     def __init__(self,name):
         self.name = name
         self.hand = []
@@ -222,6 +222,31 @@ text_Bold = pygame.font.SysFont(fontType, 30)
 text_Normal = pygame.font.SysFont(fontType, 20)
 text_Small = pygame.font.SysFont(fontType, 10)
 
+
+bet15_img = pygame.image.load("Grafika/Obiekty/bet1,5p.png")
+bet1_img = pygame.image.load("Grafika/Obiekty/bet1p.png")
+bet05_img = pygame.image.load("Grafika/Obiekty/bet0.5.png")
+hit_img = pygame.image.load("Grafika/Obiekty/hit.png")
+stand_img = pygame.image.load("Grafika/Obiekty/STAND.png")
+double_img = pygame.image.load("Grafika/Obiekty/double.png")
+bet05_button = Button(halfWidth-round(300*percents[choice]),screenHeight-round(100*percents[choice]),bet05_img,percents[choice],hover_image=brighten_surface(bet05_img))
+bet1_button = Button(halfWidth-round(100*percents[choice]),screenHeight-round(105*percents[choice]),bet1_img,percents[choice],hover_image=brighten_surface(bet1_img))
+bet15_button = Button(halfWidth+round(100*percents[choice]),screenHeight-round(102*percents[choice]),bet15_img,percents[choice],hover_image=brighten_surface(bet15_img))
+adjusted_center = halfWidth - 150 * percents[choice] + 50
+button_spacing = 160 * percents[choice]
+card_height = round(144*percents[choice])
+
+hit_button = Button(adjusted_center - button_spacing, screenHeight - 70, hit_img,percents[choice],hover_image=brighten_surface(hit_img))
+stand_button = Button(adjusted_center, screenHeight - 70, stand_img,percents[choice],hover_image=brighten_surface(stand_img))
+double_button = Button(adjusted_center + button_spacing, screenHeight - 70, double_img, percents[choice],hover_image=brighten_surface(double_img))
+card_back_img = pygame.image.load("Grafika/Karty/tyl_karty.png")
+card_back_img = pygame.transform.scale(card_back_img, (round(96 * percents[choice]), round(144 * percents[choice])))
+leave_img = pygame.image.load("Grafika/Obiekty/leave.png")
+leave_button = Button(10, 10, leave_img, round(percents[choice]*1.5))
+leave_button.set_enabled(True)
+hit_button.set_enabled(True)
+stand_button.set_enabled(True)
+double_button.set_enabled(True)
 
 
 

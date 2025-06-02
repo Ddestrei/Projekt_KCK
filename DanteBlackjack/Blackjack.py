@@ -253,7 +253,6 @@ class Game:
         self.dealer = Dealer()
         self.players = []
         self.num_of_players = 1
-        self.startY = 50
         self.turnOver= False
     def fixCoordinates(self):
         if self.num_of_players == 1:
@@ -291,6 +290,12 @@ class Game:
             self.players[3].y = round(650*percents[choice])
             self.players[4].x = round(1043*percents[choice])
             self.players[4].y = round(410*percents[choice])
+
+    def add_text(self,text, font, surface, x, y, text_color):
+        textObject = font.render(text, False, text_color)
+        textWidth = textObject.get_rect().width
+        textHeight = textObject.get_rect().height
+        surface.blit(textObject, (x - (textWidth / 2), y - (textHeight / 2)))
 
 
 

@@ -27,14 +27,16 @@ class Lobby_Screen(Screen):
         window.blit(background, (0, 0))
 
         lobby_to_Menu_button.tool_draw(window)
-        lobby_add_table.tool_draw(window)
+
+
+        # lobby_add_table.tool_draw(window)
 
         lobby_blackspace = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_blackspace.png")
+        window.blit(lobby_blackspace, (498, 34))
 
-        text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", 10).render("Choose table to play", True,
+        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", 36).render("Choose table to play", True,
     (242, 120, 27))  # Renderowanie tekstu
-        window.blit(text, (100, 100))  # Wyświetlenie tekstu
+        window.blit(text_lobby_blackspace, (574, 50))  # Wyświetlenie tekstu
 
-        window.blit(lobby_blackspace, (300, 200))
 
         pygame.display.update()

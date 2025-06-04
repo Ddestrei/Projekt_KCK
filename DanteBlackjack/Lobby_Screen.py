@@ -23,11 +23,6 @@ class Lobby_Screen(Screen):
     def __init__(self):
         self.choice = None
         self.window = None
-        self.tables_positions = None
-
-    def Start(self, window, choice):
-        self.window = window
-        self.choice = choice
         self.tables_positions = [
             (99, 195),
             (545, 195),
@@ -36,6 +31,16 @@ class Lobby_Screen(Screen):
             (545, 577),
             (979, 577)
         ]
+        self.number_of_tables = 6
+        self.array_of_number_of_players = (2, 3, 1, 2, 1, 4)
+        self.array_of_bets = (0.5, 1, 1.5, 1, 2, 3)
+
+
+
+    def Start(self, window, choice):
+        self.window = window
+        self.choice = choice
+
 
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/background_lobby.png')
@@ -43,8 +48,6 @@ class Lobby_Screen(Screen):
         self.window.blit(background, (0, 0))
 
         lobby_to_Menu_button.tool_draw(self.window)
-
-        # lobby_add_table.tool_draw(window)
 
         lobby_blackspace = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_blackspace.png")
         self.window.blit(lobby_blackspace, (498, 34))
@@ -57,13 +60,17 @@ class Lobby_Screen(Screen):
         # buttonc = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], 0.5, 3)
         # buttona = self.create_table(self.tables_positions[1][0], self.tables_positions[1][1], 0.5, 1)
 
-        table_button_array = self.display_tables(6, (2, 3, 1, 2, 1, 4), (0.5, 1, 1.5, 1, 2, 3))
-        if table_button_array[2].click_left():
-            print("3")
+        table_button_array, lobby_add_table = self.display_tables(self.number_of_tables, self.array_of_number_of_players, self.array_of_bets)
+        # if table_button_array[2].click_left():
+        #     print("3")
         if table_button_array[1].click_left():
             print("2")
         if table_button_array[0].click_left():
             print("1")
+
+
+
+
 
         pygame.display.update()
 
@@ -96,6 +103,7 @@ class Lobby_Screen(Screen):
 
     def display_tables(self, number_of_tables, array_of_number_of_players, array_of_bets):
         table_button_array = []
+        lobby_add_table = None
 
         if number_of_tables >= 1:
             button = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], array_of_bets[0],
@@ -132,4 +140,4 @@ class Lobby_Screen(Screen):
                                      self.tables_positions[number_of_tables][1], "lobby_add_table.png")
             lobby_add_table.tool_draw(self.window)
 
-        return table_button_array
+        return table_button_array, lobby_add_table

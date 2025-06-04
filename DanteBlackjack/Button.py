@@ -106,10 +106,7 @@ x_button = 20
 y_button = 20
 x_button, y_button = scale_position(x_button,y_button,choice)
 lobby_to_Menu_button = Button(x_button, y_button, "lobby_to_Menu_button.png")
-x_button = 40
-y_button = 50
-x_button, y_button = scale_position(x_button, y_button, choice)
-lobby_add_table = Button(x_button, y_button, "lobby_add_table.png")
+
 
 
 x_button = 486

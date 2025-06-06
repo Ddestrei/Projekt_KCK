@@ -14,5 +14,5 @@ if __name__ == "__main__":
         server_socket.listen()
         while True:
             conn, address = server_socket.accept()
-            client = OneClientConnection(conn, address)
+            client = OneClientConnection(conn, address, dataBase=database)
             clients.append(client)

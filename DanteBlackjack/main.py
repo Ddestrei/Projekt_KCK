@@ -5,6 +5,14 @@ from EkranStartuGry import *
 from Lobby_Screen import *
 from EkranLogowania import *
 
+
+# testuje tutaj clienta i jego fukcjionalności
+from Client import Client
+client = Client()
+client.login_to_server("123456", "password")
+#
+
+
 window = pygame.display.set_mode(resolutions[choice])
 
 ekran_logowania = EkranLogowania()

@@ -21,7 +21,7 @@ class DataBase:
         user.__str__()
 
     def connect_to_database(self):
-        self.connection = sqlite3.connect(DATABASE_NAME)
+        self.connection = sqlite3.connect(DATABASE_NAME, check_same_thread=False)
         self.cursor = self.connection.cursor()
         self.cursor.execute("""
             SELECT name FROM sqlite_master where type='table' AND name = 'users';

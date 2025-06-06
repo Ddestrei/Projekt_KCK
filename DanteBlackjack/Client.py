@@ -1,5 +1,12 @@
 import socket
+import string
 import threading
+
+
+# login_to_game nr_albumu password
+# connect_to_table nr_albumu table_id
+# disconnect nr_albumu
+# start_game nr_albumu
 
 
 class Client:
@@ -12,14 +19,7 @@ class Client:
         client_socket.connect((host, port))  # connect to the server
         self.conn = client_socket
         self.is_connected = True
-        receiver_thread = threading.Thread(target=self.receiver)
-        receiver_thread.start()
-        self.sender("Ala ma kota")
 
-        while self.is_connected:
-            pass
-
-        client_socket.close()  # close the connection
 
     def receiver(self):
         while self.is_connected:
@@ -30,3 +30,8 @@ class Client:
 
     def sender(self, message):
         self.conn.send(message.encode())
+
+    def login_to_server(self, nr_album: string, password: string):
+        self.sender("login_to_game" + " " + nr_album + " " + password)
+        mess = str(self.conn.recv(1024).decode())
+        print(mess)

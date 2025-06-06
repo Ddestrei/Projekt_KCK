@@ -21,8 +21,6 @@ while running:
         if(current_screen == ekran_logowania):
             username.writing(event)
             password.writing(event)
-        
-
     current_screen.Start(window, choice)
     #ekran logowania
     if button_log.tool_click_left() and current_screen == ekran_logowania:

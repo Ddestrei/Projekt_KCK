@@ -1,38 +1,47 @@
-from EkranLogowania import *
+import pygame
+
+pygame.init()
 from EkranStartowyDante import *
 from EkranStartuGry import *
-from EkranWyborStolu import *
-from Client import Client
+from Lobby_Screen import *
+from EkranLogowania import *
 
-if __name__ == "__main__":
-    client = Client()
-    pygame.init()
-    window = pygame.display.set_mode((800, 600))  # zmienic ilosc pikseli
+window = pygame.display.set_mode(resolutions[choice])
 
-    ekran_logowania = EkranLogowania()
-    ekran_startowy_dante = EkranStartowyDante()
-    ekran_startu_gry = EkranStartuGry()
-    ekran_wyboru_stolu = EkranWyboruStolu()
-    current_screen = ekran_logowania
+ekran_logowania = EkranLogowania()
+ekran_startowy_dante = EkranStartowyDante()
+ekran_startu_gry = EkranStartuGry()
+ekran_wyboru_stolu = Lobby_Screen()
+current_screen = ekran_logowania
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if (current_screen == ekran_logowania):
+            username.writing(event)
+            password.writing(event)
 
-        current_screen.start(window)
-        # ekran logowania
-        if button_log.button_click() and current_screen == ekran_logowania:
-            current_screen = ekran_startowy_dante
-        # ekran startowy dante
-        if button_0.button_click() and current_screen == ekran_startowy_dante:
-            current_screen = ekran_startu_gry
-        # ekran startu gry
-        if button_1.button_click() and current_screen == ekran_startu_gry:
-            current_screen = ekran_startowy_dante
-        if button_2.button_click() and current_screen == ekran_startu_gry:
-            current_screen = ekran_wyboru_stolu
-        # ekran wybor stolu
-        if button_3.button_click() and current_screen == ekran_wyboru_stolu:
-            current_screen = ekran_startu_gry
+    current_screen.Start(window, choice)
+    # ekran logowania
+    if button_log.tool_click_left() and current_screen == ekran_logowania:
+        username.status_set_0()
+        current_screen = ekran_startowy_dante
+    if username.tool_click_left() and current_screen == ekran_logowania:
+        username.status_set_1()
+        password.status_set_0()
+    if password.tool_click_left() and current_screen == ekran_logowania:
+        password.status_set_1()
+        username.status_set_0()
+    # ekran startowy dante
+    if button_0.tool_click_left() and current_screen == ekran_startowy_dante:
+        current_screen = ekran_startu_gry
+    # ekran startu gry
+    if button_1.tool_click_left() and current_screen == ekran_startu_gry:
+        current_screen = ekran_startowy_dante
+    if button_2.tool_click_left() and current_screen == ekran_startu_gry:
+        current_screen = ekran_wyboru_stolu
+    # ekran wybor stolu
+    if lobby_to_Menu_button.tool_click_left() and current_screen == ekran_wyboru_stolu:
+        current_screen = ekran_startu_gry

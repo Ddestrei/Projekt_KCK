@@ -1,12 +1,16 @@
 import pygame
-
 pygame.init()
-from Button import *
+from Screen import *
 
-
-class EkranLogowania:
-    def start(self, window):
+class EkranLogowania(Screen):
+    def Start(self, window, choice):
         pygame.time.Clock().tick(60)
-        window.fill((0, 0, 0))  # tymczasowe
-        button_log.button_draw(window)
+        background = pygame.image.load('DanteBlackJack/Grafika/Tla/Ekran_Logowania.png')
+        background = pygame.transform.scale(background, (resolutions[choice]))
+        window.blit(background, (0, 0))
+        button_log.tool_draw(window)
+        username.tool_draw(window)
+        username.render_text(window)
+        password.tool_draw(window)
+        password.render_text(window)
         pygame.display.update()

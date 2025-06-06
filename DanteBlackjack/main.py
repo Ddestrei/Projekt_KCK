@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 from EkranStartowyDante import *
 from EkranStartuGry import *
-from EkranWyborStolu import *
+from Lobby_Screen import *
 from EkranLogowania import *
 
 window = pygame.display.set_mode(resolutions[choice])
@@ -10,7 +10,7 @@ window = pygame.display.set_mode(resolutions[choice])
 ekran_logowania = EkranLogowania()
 ekran_startowy_dante = EkranStartowyDante()
 ekran_startu_gry = EkranStartuGry()
-ekran_wyboru_stolu = EkranWyboruStolu()
+ekran_wyboru_stolu = Lobby_Screen()
 current_screen = ekran_logowania
 
 running = True
@@ -21,8 +21,6 @@ while running:
         if(current_screen == ekran_logowania):
             username.writing(event)
             password.writing(event)
-
-
     current_screen.Start(window, choice)
     #ekran logowania
     if button_log.tool_click_left() and current_screen == ekran_logowania:
@@ -43,6 +41,6 @@ while running:
     if button_2.tool_click_left() and current_screen == ekran_startu_gry:
         current_screen = ekran_wyboru_stolu
     #ekran wybor stolu
-    if button_3.tool_click_left() and current_screen == ekran_wyboru_stolu:
+    if lobby_to_Menu_button.tool_click_left() and current_screen == ekran_wyboru_stolu:
         current_screen = ekran_startu_gry
 

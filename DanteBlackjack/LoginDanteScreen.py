@@ -1,8 +1,6 @@
-import pygame
-pygame.init()
 from Screen import *
 
-class EkranLogowania(Screen):
+class LoginDanteScreen(Screen):
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/Ekran_Logowania.png')

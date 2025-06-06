@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 from Screen import *
 
-class EkranStartuGry(Screen):
+class DanteBlackjackStartScreen(Screen):
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
         window.fill((255, 0, 255)) #tymczasowe

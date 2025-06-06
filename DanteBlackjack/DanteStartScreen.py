@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 from Screen import *
 
-class EkranStartowyDante(Screen):
+class DanteStartScreen(Screen):
     def __init__(self):
         self.punkty_pomocy = 10 #tymczasowe
     def Start(self, window, choice):

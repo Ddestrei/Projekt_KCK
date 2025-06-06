@@ -19,7 +19,7 @@ from Screen import *
 #    mini-screen have to have: [minimal bets to choose] and [max number of players](?)
 
 
-class Lobby_Screen(Screen):
+class LobbyScreen(Screen):
     def __init__(self):
         self.choice = None
         self.window = None

@@ -1,9 +1,12 @@
 import threading
 
+from DataBase import DataBase
+from TableManager import TableManager
+
 
 class OneClientConnection:
 
-    def __init__(self, conn, address, dataBase):
+    def __init__(self, conn, address, dataBase: DataBase, tableManager: TableManager):
         self.user = None
         self.is_connected = False
         self.client_id = ""
@@ -12,6 +15,7 @@ class OneClientConnection:
         print("Connection from: " + str(address))
         self.is_connected = True
         self.dataBase = dataBase
+        self.tableManager = tableManager
         receiver_thread = threading.Thread(target=self.receiver)
         receiver_thread.start()
 
@@ -38,6 +42,11 @@ class OneClientConnection:
                 self.sender("user_already_logged")
             else:
                 self.sender(self.user.send_format())
-
-        elif mess_parts[0] == "disconnect":
+                print(str(self.conn.recv(1024).decode()))
+                self.sender(self.tableManager.send_tables())
+        elif mess_parts[0] == "create_table":
+            min_bet = int(mess_parts[1])
+            self.tableManager.add_table(min_bet, self.user)
             pass
+
+

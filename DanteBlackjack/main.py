@@ -1,15 +1,20 @@
 import pygame
+
 pygame.init()
 from EkranStartowyDante import *
 from EkranStartuGry import *
 from Lobby_Screen import *
 from EkranLogowania import *
-
+from TableManager import TableManager
 
 # testuje tutaj clienta i jego fukcjionalności
 from Client import Client
+
 client = Client()
-client.login_to_server("123456", "password")
+tableManager = TableManager()
+client.set_table_manager(tableManager)
+client.login_to_server(input("Enter nr album"), input("Enter password"))
+client.create_table(100)
 #
 
 
@@ -26,11 +31,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if(current_screen == ekran_logowania):
+        if (current_screen == ekran_logowania):
             username.writing(event)
             password.writing(event)
     current_screen.Start(window, choice)
-    #ekran logowania
+    # ekran logowania
     if button_log.tool_click_left() and current_screen == ekran_logowania:
         username.status_set_0()
         current_screen = ekran_startowy_dante
@@ -40,15 +45,14 @@ while running:
     if password.tool_click_left() and current_screen == ekran_logowania:
         password.status_set_1()
         username.status_set_0()
-    #ekran startowy dante
+    # ekran startowy dante
     if button_0.tool_click_left() and current_screen == ekran_startowy_dante:
         current_screen = ekran_startu_gry
-    #ekran startu gry
+    # ekran startu gry
     if button_1.tool_click_left() and current_screen == ekran_startu_gry:
         current_screen = ekran_startowy_dante
     if button_2.tool_click_left() and current_screen == ekran_startu_gry:
         current_screen = ekran_wyboru_stolu
-    #ekran wybor stolu
+    # ekran wybor stolu
     if lobby_to_Menu_button.tool_click_left() and current_screen == ekran_wyboru_stolu:
         current_screen = ekran_startu_gry
-

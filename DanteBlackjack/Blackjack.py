@@ -369,6 +369,9 @@ class Game:
                 pygame.display.update()
 
             i += 1
+    def newDeck(self):
+        self.dealer = Dealer()
+
 
 
 gameOver = False
@@ -384,5 +387,6 @@ while gameOver is False:
             gameOver = True
         if game.turnOver ==True:
             break
+        game.newDeck()
 
 

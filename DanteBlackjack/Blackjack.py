@@ -520,6 +520,37 @@ class Game:
                     can_double = False
 
                 pygame.display.update()
+    def dealers_turn(self):
+        self.dealer.hide_second_card = False  # Reveal dealer's card
+
+        self.dealer.countAce()  #  calculate points
+
+        dealer_turn_over = False
+        while not dealer_turn_over:
+            screen.blit(pokerGreen, (0, 0))
+            self.draw_all_hands()
+            self.add_text("Revealing cards...", text_Bold, screen, halfWidth, 40, red)
+
+
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+
+            pygame.display.update()
+
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            self.delay_with_events(500)
+
+            # drawing cards by dealer when < 17 points
+            if self.dealer.count < 17:
+                pygame.time.wait(500)
+                self.dealer.addCard()
+            else:
+                dealer_turn_over = True
 
 
 
@@ -543,5 +574,6 @@ while gameOver is False:
         game.newDeck()
         game.createHands()
         game.playTurn()
+        game.dealers_turn()
 
 

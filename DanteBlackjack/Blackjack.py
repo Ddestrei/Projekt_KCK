@@ -153,6 +153,9 @@ class Player:
         self.roundsWon = 0
         self.x = 0
         self.y = 0
+        self.EndOfTurn = False
+        self.result = ""
+        self.bust = False
     def addCard(self, card):
         self.hand.append(card)
         self.countCards()
@@ -185,6 +188,7 @@ class Dealer:
         self.count = 0
         self.x = round(672*percents[choice])
         self.y = round(450*percents[choice])
+        self.hide_second_card = True
     def createDealerHand(self):
         for i in range(1, 3):
             self.addCard()
@@ -369,6 +373,235 @@ class Game:
                 pygame.display.update()
 
             i += 1
+    def newDeck(self):
+        self.dealer = Dealer()
+    def draw_all_hands(self):
+        # Drawing players hands
+        for i, p in enumerate(self.players):
+            x_offset = 0
+            for card in p.hand:
+                screen.blit(card.image, (p.x + x_offset, p.y))
+                x_offset += 30
+            # Adding text with number of points in cards
+            if p.EndOfTurn == False:
+                if p.low_count != p.high_count:
+                    text = f"{p.low_count}/{p.high_count} pkt"
+                else:
+                    text = f"{p.low_count} pkt"
+                self.add_text(text, text_Small, screen, p.x + 40, p.y - 10, white)
+            else:
+                self.add_text(str(p.result), text_Small, screen, p.x + 40, p.y - 10, white)
+
+            self.add_text(p.name, text_Normal, screen, p.x + 40, p.y + card_height+ 10, orange)
+
+        # Draw dealers hand
+        x_offset = 0
+        for idx, card in enumerate(self.dealer.hand):
+            if idx == 1 and self.dealer.hide_second_card:
+                screen.blit(card_back_img, (self.dealer.x + x_offset, self.dealer.y))
+            else:
+                screen.blit(card.image, (self.dealer.x + x_offset, self.dealer.y))
+            x_offset += 30
+
+        # Show known dealers points
+        if self.dealer.hide_second_card:
+            visible_value = self.dealer.hand[0].value
+            if self.dealer.hand[0].label == "A":
+                visible_value = "1/11"
+            self.add_text(f"{visible_value} pkt", text_Small, screen, self.dealer.x + 40, self.dealer.y - 10, red)
+        else:
+            if self.dealer.low_count != self.dealer.high_count:
+                text = f"{self.dealer.low_count}/{self.dealer.high_count} pkt"
+            else:
+                text = f"{self.dealer.low_count} pkt"
+            self.add_text(text, text_Small, screen, self.dealer.x + 40, self.dealer.y - 10, red)
+    def redraw_game_screen(self):
+        screen.blit(pokerGreen, (0, 0))
+        self.draw_all_hands()
+        hit_button.draw()
+        stand_button.draw()
+        double_button.draw()
+        if leave_button.draw():
+            pygame.quit()
+            sys.exit()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+    def createHands(self):
+        dealing_stage = 0
+        last_deal_time = pygame.time.get_ticks()
+        deal_delay = 500
+        dealing_done = False
+
+        total_players = len(self.players)
+
+        while not dealing_done:
+            current_time = pygame.time.get_ticks()
+            if current_time - last_deal_time >= deal_delay:
+                last_deal_time = current_time
+
+                if dealing_stage == 0:
+                    # first card for dealer
+                    self.dealer.addCard()
+
+                elif 1 <= dealing_stage <= total_players:
+                    # first card for i player
+                    self.players[dealing_stage - 1].addCard(self.dealer.dealCard())
+
+                elif dealing_stage == total_players + 1:
+                    # second card for dealer
+                    self.dealer.addCard()
+
+                elif (total_players + 2) <= dealing_stage <= (2 * total_players + 1):
+                    # second card for i player
+                    player_index = dealing_stage - (total_players + 2)
+                    self.players[player_index].addCard(self.dealer.dealCard())
+
+                else:
+                    dealing_done = True
+
+                dealing_stage += 1
+                self.redraw_game_screen()
+                self.add_text("Dealing cards, please wait for your turn", text_Bold, screen, halfWidth, 40, white)
+                pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+    def playTurn(self):
+        for player in self.players:
+            turn_active = True
+            can_double = True
+            hit_button.set_enabled(True)
+            stand_button.set_enabled(True)
+            double_button.set_enabled(True)
+            while turn_active:
+                screen.blit(pokerGreen, (0, 0))
+                self.draw_all_hands()
+                self.add_text(f"Player's {self.players.index(player) + 1} turn", text_Bold, screen, halfWidth, 40, orange)
+                hit_button.draw()
+                stand_button.draw()
+                double_button.draw()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+
+                if player.count==21 or player.high_count==21:
+                    turn_active = False
+
+                if stand_button.draw():
+                    turn_active = False
+
+                elif hit_button.draw():
+                    player.addCard(self.dealer.dealCard())
+                    self.draw_all_hands()
+                    can_double = False
+                    double_button.set_enabled(False)
+
+                    if player.high_count > 21:
+                        player.bust = True
+                        turn_active = False
+
+                elif double_button.draw() and can_double:
+                    player.bet *= 2
+                    player.addCard(self.dealer.dealCard())
+                    if player.high_count > 21:
+                        player.bust = True
+                    turn_active = False
+                    can_double = False
+
+                pygame.display.update()
+    def dealers_turn(self):
+        self.dealer.hide_second_card = False  # Reveal dealer's card
+
+        self.dealer.countAce()  #  calculate points
+
+        dealer_turn_over = False
+        while not dealer_turn_over:
+            screen.blit(pokerGreen, (0, 0))
+            self.draw_all_hands()
+            self.add_text("Revealing cards...", text_Bold, screen, halfWidth, 40, red)
+
+
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+
+            pygame.display.update()
+
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            self.delay_with_events(500)
+
+            # drawing cards by dealer when < 17 points
+            if self.dealer.count < 17:
+                pygame.time.wait(500)
+                self.dealer.addCard()
+            else:
+                dealer_turn_over = True
+    def calculateResults(self):
+        result_display_time = 5000
+        start_time = pygame.time.get_ticks()
+
+        while pygame.time.get_ticks() - start_time < result_display_time:
+            screen.blit(pokerGreen, (0, 0))
+            self.add_text("End of this turn", text_Bold, screen, halfWidth, 40, red)
+            self.draw_all_hands()
+
+
+            for i, p in enumerate(self.players):
+                if p.EndOfTurn == False:
+                    if p.bust:
+                        p.result = "Bust!"
+                        p.bank -= p.bet
+                    elif self.dealer.count > 21:
+                        p.result = f"Win! (Dealer bust)"
+                        p.roundsWon += 1
+                        p.bank += p.bet
+                    elif p.count > self.dealer.count:
+                        p.result = f"Win! ({p.count} > {self.dealer.count})"
+                        p.roundsWon += 1
+                        p.bank += p.bet
+                    elif p.count == self.dealer.count:
+                        p.result = f"Draw ({p.count} = {self.dealer.count})"
+                    else:
+                        p.result = f"Lose ({p.count} < {self.dealer.count})"
+                        p.bank -= p.bet
+                    p.EndOfTurn = True
+
+
+
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+    def ResetStats(self):
+        for p in self.players:
+            p.ResetHand()
+
+
+
+
+
 
 
 gameOver = False
@@ -384,5 +617,11 @@ while gameOver is False:
             gameOver = True
         if game.turnOver ==True:
             break
+        game.newDeck()
+        game.createHands()
+        game.playTurn()
+        game.dealers_turn()
+        game.calculateResults()
+        game.ResetStats()
 
 

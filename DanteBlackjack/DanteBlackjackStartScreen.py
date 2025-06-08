@@ -6,7 +6,9 @@ from Screen import *
 
 class DanteBlackjackStartScreen(Screen):
     def __init__(self):
-        self.IsAdmin = True
+        self.name = "Whatever"
+        self.points = 10
+        self.IsAdmin = False
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
@@ -18,9 +20,25 @@ class DanteBlackjackStartScreen(Screen):
         logo = Tool(x, y, "/StartScreenGraphics/logo.png")
         logo.tool_draw(window)
 
-        # logo = pygame.image.load('DanteBlackJack/Grafika/Obiekty/StartScreenGraphics/logo.png')
+        x, y = scale_position(179, 148, choice)
+        name_box = Tool(x, y, "/StartScreenGraphics/StartScreen_info.png")
+        name_box.tool_draw(window)
 
-        # window.blit(logo, (586, 35))
+        x, y = scale_position(179, 213, choice)
+        points_box = Tool(x, y, "/StartScreenGraphics/StartScreen_info.png")
+        points_box.tool_draw(window)
+
+        name_text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+                                     scale_font(34, choice)).render(
+            self.name, True,
+            (255, 255, 255))
+        window.blit(name_text, scale_position(199, 145, choice))
+
+        points_text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+                                       scale_font(30, choice)).render(
+            "POINTS: " + str(self.points), True,
+            (255, 255, 255))
+        window.blit(points_text, scale_position(199, 215, choice))
 
         StartGameButton.tool_draw(window)
         RulesButton.tool_draw(window)

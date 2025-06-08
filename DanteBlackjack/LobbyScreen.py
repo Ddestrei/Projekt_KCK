@@ -46,13 +46,14 @@ class LobbyScreen(Screen):
 
         lobby_to_Menu_button.tool_draw(self.window)
 
-        lobby_blackspace = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_blackspace.png")
-        self.window.blit(lobby_blackspace, (498, 34))
+        x, y = scale_position(498, 34, choice)
+        lobby_blackspace_box = Tool(x, y, "lobby_blackspace.png")
+        lobby_blackspace_box.tool_draw(window)
 
-        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", 36).render(
+        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", scale_font(36, choice)).render(
             "Choose table to play", True,
             (242, 120, 27))  # Renderowanie tekstu
-        self.window.blit(text_lobby_blackspace, (574, 50))  # Wyświetlenie tekstu
+        self.window.blit(text_lobby_blackspace, scale_position(574, 50, choice))  # Wyświetlenie tekstu
 
         # buttonc = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], 0.5, 3)
         # buttona = self.create_table(self.tables_positions[1][0], self.tables_positions[1][1], 0.5, 1)
@@ -73,7 +74,7 @@ class LobbyScreen(Screen):
         table_button = Button(button_x, button_y, "lobby_table.png")
         table_button.tool_draw(self.window)
 
-        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", 36).render(
+        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", scale_font(36, self.choice)).render(
             f"{bet}", True, (179, 38, 30))
         button_x, button_y = scale_position(table_x + 164, table_y + 8, self.choice)
         self.window.blit(text_lobby_blackspace, (button_x, button_y))
@@ -81,17 +82,21 @@ class LobbyScreen(Screen):
         button_x, button_y = scale_position(table_x + 91, table_y + 263, self.choice)
         match number_of_players:
             case 1:
-                lobby_players1 = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_players1.png")
-                self.window.blit(lobby_players1, (button_x, button_y))
+                x, y = scale_position(table_x + 91, table_y + 263, self.choice)
+                lobby_players1 = Tool(x, y, "lobby_players1.png")
+                lobby_players1.tool_draw(self.window)
             case 2:
-                lobby_players2 = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_players2.png")
-                self.window.blit(lobby_players2, (button_x, button_y))
+                x, y = scale_position(table_x + 91, table_y + 263, self.choice)
+                lobby_players2 = Tool(x, y, "lobby_players2.png")
+                lobby_players2.tool_draw(self.window)
             case 3:
-                lobby_players3 = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_players3.png")
-                self.window.blit(lobby_players3, (button_x, button_y))
+                x, y = scale_position(table_x + 91, table_y + 263, self.choice)
+                lobby_players3 = Tool(x, y, "lobby_players3.png")
+                lobby_players3.tool_draw(self.window)
             case 4:
-                lobby_players4 = pygame.image.load("DanteBlackJack/Grafika/Obiekty/lobby_players4.png")
-                self.window.blit(lobby_players4, (button_x, button_y))
+                x, y = scale_position(table_x + 91, table_y + 263, self.choice)
+                lobby_players4 = Tool(x, y, "lobby_players4.png")
+                lobby_players4.tool_draw(self.window)
 
         return table_button
 

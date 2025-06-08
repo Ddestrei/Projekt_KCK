@@ -28,6 +28,10 @@ class DanteBlackjackStartScreen(Screen):
         points_box = Tool(x, y, "/StartScreenGraphics/StartScreen_info.png")
         points_box.tool_draw(window)
 
+        x, y = scale_position(139, 148, choice)
+        icon_box = Tool(x, y, "/StartScreenGraphics/icon.png")
+        icon_box.tool_draw(window)
+
         name_text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
                                      scale_font(34, choice)).render(
             self.name, True,
@@ -39,6 +43,8 @@ class DanteBlackjackStartScreen(Screen):
             "POINTS: " + str(self.points), True,
             (255, 255, 255))
         window.blit(points_text, scale_position(199, 215, choice))
+
+
 
         StartGameButton.tool_draw(window)
         RulesButton.tool_draw(window)

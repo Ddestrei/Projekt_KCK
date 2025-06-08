@@ -414,6 +414,21 @@ class Game:
             else:
                 text = f"{self.dealer.low_count} pkt"
             self.add_text(text, text_Small, screen, self.dealer.x + 40, self.dealer.y - 10, red)
+    def redraw_game_screen(self):
+        screen.blit(pokerGreen, (0, 0))
+        self.draw_all_hands()
+        hit_button.draw()
+        stand_button.draw()
+        double_button.draw()
+        if leave_button.draw():
+            pygame.quit()
+            sys.exit()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
 
 
 

@@ -7,7 +7,6 @@ from Screen import *
 class DanteBlackjackStartScreen(Screen):
     def __init__(self):
         self.IsAdmin = True
-        self.percents = [0.6, 0.8, 1]
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)

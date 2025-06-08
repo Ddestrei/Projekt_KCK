@@ -39,8 +39,8 @@ y_button = 613
 x_button, y_button = scale_position(x_button, y_button, choice)
 ExitGameButton = Button(x_button, y_button, "StartScreenGraphics/StartScreen_exit_button.png")
 
-x_button = 200
-y_button = 200
+x_button = 650
+y_button = 699
 x_button, y_button = scale_position(x_button, y_button, choice)
 StatisticsButton = Button(x_button, y_button, "StartScreenGraphics/StartScreen_statistics_button.png")
 

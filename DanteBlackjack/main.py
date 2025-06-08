@@ -20,7 +20,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            #ekran logowania
+            # ekran logowania
             if button_log.tool_click_left() and current_screen == login_dante_screen:
                 username.status_set_0()
                 current_screen = dante_start_screen
@@ -30,10 +30,10 @@ while running:
             if password.tool_click_left() and current_screen == login_dante_screen:
                 password.status_set_1()
                 username.status_set_0()
-            #ekran startowy dante
+            # ekran startowy dante
             if button_0.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
-            #ekran startu gry
+            # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen
             if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
@@ -46,10 +46,10 @@ while running:
             if RulesScreen_back.tool_click_left() and current_screen == rules_screen:
                 current_screen = dante_blackjack_start_screen
 
-            #ekran wybor stolu
+            # ekran wybor stolu
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
-        #ekran logowania
-        if(current_screen == login_dante_screen):
+        # ekran logowania
+        if current_screen == login_dante_screen:
             username.writing(event)
             password.writing(event)

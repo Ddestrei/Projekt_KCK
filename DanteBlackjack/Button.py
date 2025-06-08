@@ -20,12 +20,12 @@ button_0 = Button(x_button,y_button,"PP.png")
 x_button = 600
 y_button = 50
 x_button, y_button = scale_position(x_button,y_button,choice)
-button_1 = Button(x_button,y_button, "PP.png")
+ExitGameButton = Button(x_button, y_button, "PP.png")
 
 x_button = 50
 y_button = 400
 x_button, y_button = scale_position(x_button,y_button,choice)
-button_2 = Button(x_button,y_button, "PP.png")
+StartGameButton = Button(x_button, y_button, "PP.png")
 
 x_button = 20
 y_button = 20

@@ -33,9 +33,9 @@ while running:
             if button_0.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
             #ekran startu gry
-            if button_1.tool_click_left() and current_screen == dante_blackjack_start_screen:
+            if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen
-            if button_2.tool_click_left() and current_screen == dante_blackjack_start_screen:
+            if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = lobby_screen
             #ekran wybor stolu
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:

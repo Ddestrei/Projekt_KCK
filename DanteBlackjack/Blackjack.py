@@ -153,6 +153,8 @@ class Player:
         self.roundsWon = 0
         self.x = 0
         self.y = 0
+        self.EndOfTurn = False
+        self.result = ""
     def addCard(self, card):
         self.hand.append(card)
         self.countCards()
@@ -185,6 +187,7 @@ class Dealer:
         self.count = 0
         self.x = round(672*percents[choice])
         self.y = round(450*percents[choice])
+        self.hide_second_card = True
     def createDealerHand(self):
         for i in range(1, 3):
             self.addCard()
@@ -371,6 +374,48 @@ class Game:
             i += 1
     def newDeck(self):
         self.dealer = Dealer()
+    def draw_all_hands(self):
+        # Drawing players hands
+        for i, p in enumerate(self.players):
+            x_offset = 0
+            for card in p.hand:
+                screen.blit(card.image, (p.x + x_offset, p.y))
+                x_offset += 30
+            # Adding text with number of points in cards
+            if p.EndOfTurn == False:
+                if p.low_count != p.high_count:
+                    text = f"{p.low_count}/{p.high_count} pkt"
+                else:
+                    text = f"{p.low_count} pkt"
+                self.add_text(text, text_Small, screen, p.x + 40, p.y - 10, white)
+            else:
+                self.add_text(str(p.result), text_Small, screen, p.x + 40, p.y - 10, white)
+
+            self.add_text(p.name, text_Normal, screen, p.x + 40, p.y + card_height+ 10, orange)
+
+        # Draw dealers hand
+        x_offset = 0
+        for idx, card in enumerate(self.dealer.hand):
+            if idx == 1 and self.dealer.hide_second_card:
+                screen.blit(card_back_img, (self.dealer.x + x_offset, self.dealer.y))
+            else:
+                screen.blit(card.image, (self.dealer.x + x_offset, self.dealer.y))
+            x_offset += 30
+
+        # Show known dealers points
+        if self.dealer.hide_second_card:
+            visible_value = self.dealer.hand[0].value
+            if self.dealer.hand[0].label == "A":
+                visible_value = "1/11"
+            self.add_text(f"{visible_value} pkt", text_Small, screen, self.dealer.x + 40, self.dealer.y - 10, red)
+        else:
+            if self.dealer.low_count != self.dealer.high_count:
+                text = f"{self.dealer.low_count}/{self.dealer.high_count} pkt"
+            else:
+                text = f"{self.dealer.low_count} pkt"
+            self.add_text(text, text_Small, screen, self.dealer.x + 40, self.dealer.y - 10, red)
+
+
 
 
 

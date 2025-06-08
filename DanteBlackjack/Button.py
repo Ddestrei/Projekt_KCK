@@ -44,8 +44,12 @@ y_button = 200
 x_button, y_button = scale_position(x_button, y_button, choice)
 StatisticsButton = Button(x_button, y_button, "StartScreenGraphics/StartScreen_statistics_button.png")
 
-
 x_button = 20
 y_button = 20
 x_button, y_button = scale_position(x_button, y_button, choice)
 lobby_to_Menu_button = Button(x_button, y_button, "lobby_to_Menu_button.png")
+
+x_button = 651
+y_button = 955
+x_button, y_button = scale_position(x_button, y_button, choice)
+RulesScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")

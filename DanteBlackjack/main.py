@@ -2,7 +2,7 @@ from DanteStartScreen import *
 from DanteBlackjackStartScreen import *
 from LobbyScreen import *
 from LoginDanteScreen import *
-
+from RulesScreen import *
 
 window = pygame.display.set_mode(resolutions[choice])
 
@@ -10,6 +10,7 @@ login_dante_screen = LoginDanteScreen()
 dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen()
 lobby_screen = LobbyScreen()
+rules_screen = RulesScreen()
 current_screen = login_dante_screen
 
 running = True
@@ -37,6 +38,14 @@ while running:
                 current_screen = dante_start_screen
             if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = lobby_screen
+
+            # ekran zasad
+            if RulesButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
+                current_screen = rules_screen
+
+            if RulesScreen_back.tool_click_left() and current_screen == rules_screen:
+                current_screen = dante_blackjack_start_screen
+
             #ekran wybor stolu
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen

@@ -428,6 +428,51 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+    def createHands(self):
+        dealing_stage = 0
+        last_deal_time = pygame.time.get_ticks()
+        deal_delay = 500
+        dealing_done = False
+
+        total_players = len(self.players)
+
+        while not dealing_done:
+            current_time = pygame.time.get_ticks()
+            if current_time - last_deal_time >= deal_delay:
+                last_deal_time = current_time
+
+                if dealing_stage == 0:
+                    # first card for dealer
+                    self.dealer.addCard()
+
+                elif 1 <= dealing_stage <= total_players:
+                    # first card for i player
+                    self.players[dealing_stage - 1].addCard(self.dealer.dealCard())
+
+                elif dealing_stage == total_players + 1:
+                    # second card for dealer
+                    self.dealer.addCard()
+
+                elif (total_players + 2) <= dealing_stage <= (2 * total_players + 1):
+                    # second card for i player
+                    player_index = dealing_stage - (total_players + 2)
+                    self.players[player_index].addCard(self.dealer.dealCard())
+
+                else:
+                    dealing_done = True
+
+                dealing_stage += 1
+                self.redraw_game_screen()
+                self.add_text("Dealing cards, please wait for your turn", text_Bold, screen, halfWidth, 40, white)
+                pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+
 
 
 
@@ -448,5 +493,6 @@ while gameOver is False:
         if game.turnOver ==True:
             break
         game.newDeck()
+        game.createHands()
 
 

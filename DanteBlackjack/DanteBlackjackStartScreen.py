@@ -6,7 +6,7 @@ from Screen import *
 
 class DanteBlackjackStartScreen(Screen):
     def __init__(self):
-        self.isadmin = 0
+        self.IsAdmin = True
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
@@ -15,11 +15,14 @@ class DanteBlackjackStartScreen(Screen):
         window.blit(background, (0, 0))
 
         logo = pygame.image.load('DanteBlackJack/Grafika/Obiekty/StartScreenGraphics/logo.png')
-        window.blit(logo, (589, 22))
+        window.blit(logo, (586, 35))
 
-        ExitGameButton.tool_draw(window)
         StartGameButton.tool_draw(window)
-        pygame.display.update()
+        RulesButton.tool_draw(window)
+        SettingsButton.tool_draw(window)
+        ExitGameButton.tool_draw(window)
 
-        if self.isadmin:
-            print("aa")
+        if self.IsAdmin:
+            StatisticsButton.tool_draw(window)
+
+        pygame.display.update()

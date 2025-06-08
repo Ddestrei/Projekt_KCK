@@ -594,6 +594,9 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+    def ResetStats(self):
+        for p in self.players:
+            p.ResetHand()
 
 
 
@@ -619,5 +622,6 @@ while gameOver is False:
         game.playTurn()
         game.dealers_turn()
         game.calculateResults()
+        game.ResetStats()
 
 

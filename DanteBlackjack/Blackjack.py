@@ -472,6 +472,54 @@ class Game:
                 if leave_button.draw():
                     pygame.quit()
                     sys.exit()
+    def playTurn(self):
+        for player in self.players:
+            turn_active = True
+            can_double = True
+            hit_button.set_enabled(True)
+            stand_button.set_enabled(True)
+            double_button.set_enabled(True)
+            while turn_active:
+                screen.blit(pokerGreen, (0, 0))
+                self.draw_all_hands()
+                self.add_text(f"Player's {self.players.index(player) + 1} turn", text_Bold, screen, halfWidth, 40, orange)
+                hit_button.draw()
+                stand_button.draw()
+                double_button.draw()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
+
+                if player.count==21 or player.high_count==21:
+                    turn_active = False
+
+                if stand_button.draw():
+                    turn_active = False
+
+                elif hit_button.draw():
+                    player.addCard(self.dealer.dealCard())
+                    self.draw_all_hands()
+                    can_double = False
+                    double_button.set_enabled(False)
+
+                    if player.high_count > 21:
+                        player.bust = True
+                        turn_active = False
+
+                elif double_button.draw() and can_double:
+                    player.bet *= 2
+                    player.addCard(self.dealer.dealCard())
+                    if player.high_count > 21:
+                        player.bust = True
+                    turn_active = False
+                    can_double = False
+
+                pygame.display.update()
 
 
 
@@ -494,5 +542,6 @@ while gameOver is False:
             break
         game.newDeck()
         game.createHands()
+        game.playTurn()
 
 

@@ -2,7 +2,7 @@ from DanteStartScreen import *
 from DanteBlackjackStartScreen import *
 from LobbyScreen import *
 from LoginDanteScreen import *
-
+from RulesScreen import *
 
 window = pygame.display.set_mode(resolutions[choice])
 
@@ -10,6 +10,7 @@ login_dante_screen = LoginDanteScreen()
 dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen()
 lobby_screen = LobbyScreen()
+rules_screen = RulesScreen()
 current_screen = login_dante_screen
 
 running = True
@@ -19,7 +20,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            #ekran logowania
+            # ekran logowania
             if button_log.tool_click_left() and current_screen == login_dante_screen:
                 username.status_set_0()
                 current_screen = dante_start_screen
@@ -29,18 +30,26 @@ while running:
             if password.tool_click_left() and current_screen == login_dante_screen:
                 password.status_set_1()
                 username.status_set_0()
-            #ekran startowy dante
+            # ekran startowy dante
             if button_0.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
-            #ekran startu gry
-            if button_1.tool_click_left() and current_screen == dante_blackjack_start_screen:
+            # ekran startu gry
+            if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen
-            if button_2.tool_click_left() and current_screen == dante_blackjack_start_screen:
+            if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = lobby_screen
-            #ekran wybor stolu
+
+            # ekran zasad
+            if RulesButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
+                current_screen = rules_screen
+
+            if RulesScreen_back.tool_click_left() and current_screen == rules_screen:
+                current_screen = dante_blackjack_start_screen
+
+            # ekran wybor stolu
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
-        #ekran logowania
-        if(current_screen == login_dante_screen):
+        # ekran logowania
+        if current_screen == login_dante_screen:
             username.writing(event)
             password.writing(event)

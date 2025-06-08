@@ -155,6 +155,7 @@ class Player:
         self.y = 0
         self.EndOfTurn = False
         self.result = ""
+        self.bust = False
     def addCard(self, card):
         self.hand.append(card)
         self.countCards()
@@ -551,6 +552,48 @@ class Game:
                 self.dealer.addCard()
             else:
                 dealer_turn_over = True
+    def calculateResults(self):
+        result_display_time = 5000
+        start_time = pygame.time.get_ticks()
+
+        while pygame.time.get_ticks() - start_time < result_display_time:
+            screen.blit(pokerGreen, (0, 0))
+            self.add_text("End of this turn", text_Bold, screen, halfWidth, 40, red)
+            self.draw_all_hands()
+
+
+            for i, p in enumerate(self.players):
+                if p.EndOfTurn == False:
+                    if p.bust:
+                        p.result = "Bust!"
+                        p.bank -= p.bet
+                    elif self.dealer.count > 21:
+                        p.result = f"Win! (Dealer bust)"
+                        p.roundsWon += 1
+                        p.bank += p.bet
+                    elif p.count > self.dealer.count:
+                        p.result = f"Win! ({p.count} > {self.dealer.count})"
+                        p.roundsWon += 1
+                        p.bank += p.bet
+                    elif p.count == self.dealer.count:
+                        p.result = f"Draw ({p.count} = {self.dealer.count})"
+                    else:
+                        p.result = f"Lose ({p.count} < {self.dealer.count})"
+                        p.bank -= p.bet
+                    p.EndOfTurn = True
+
+
+
+            if leave_button.draw():
+                pygame.quit()
+                sys.exit()
+
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
 
 
@@ -575,5 +618,6 @@ while gameOver is False:
         game.createHands()
         game.playTurn()
         game.dealers_turn()
+        game.calculateResults()
 
 

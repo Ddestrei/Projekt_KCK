@@ -6,6 +6,9 @@ from Table import Table
 from TableManager import TableManager
 
 
+# client łączonc się z serverem nie dostaje imion graczy który tam są tylko ich ilosc
+# imiona są przekazywane wtedy kiedy dolancza do danego stolu
+
 class Server:
     def __init__(self):
         self.database = DataBase()
@@ -25,3 +28,6 @@ class Server:
         for client in self.clients:
             client.sender("new_table" + " " + table.send_format())
 
+    def add_user_to_table(self, table: Table):
+        for client in self.clients:
+            client.sender("user_join_table" + " " + str(table.table_id))

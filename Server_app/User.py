@@ -30,3 +30,4 @@ class User:
         return ("user_info" + " " + self.name + " " + self.album_number + " " + self.email + " " + self.password + " " +
                 self.points.__str__() + " " + self.help_points.__str__() + " " + self.wins.__str__() + " " +
                 self.loses.__str__() + " " + self.is_admin.__str__())
+

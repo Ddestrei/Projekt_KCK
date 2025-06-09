@@ -1,5 +1,3 @@
-import string
-
 from Table import Table
 
 
@@ -10,16 +8,26 @@ class TableManager:
         self.counter = 0
         self.no_tables = False
 
-    def initialise(self, mess: string):
-        mess_parts = mess.split(" ")
+    def initialise(self, mess_parts: list[str]):
         amount_tables = int(mess_parts[1])
         for i in range(amount_tables):
-            self.tables.append(Table(mess_parts[i + 2], mess_parts[i + 3]))
-            amount_names = int(mess_parts[i + 4])
-            for j in range(amount_names):
-                self.tables[i].add_user_name(mess_parts[i + j + 5])
+            self.tables.append(Table(int(mess_parts[i + 2]), int(mess_parts[i + 3]), int(mess_parts[i + 4])))
 
     def add_new_table(self, mess_parts: list[str]):
-        table = Table(int(mess_parts[1]), int(mess_parts[2]))
-        table.add_user_name(mess_parts[3])
+        table = Table(int(mess_parts[1]), int(mess_parts[2]), 1)
         self.tables.append(table)
+
+    def increase_number_of_player(self, table_id):
+        table = self.find_table_by_id(table_id)
+        table.amount_users += 1
+
+    def find_table_by_id(self, table_id):
+        for t in self.tables:
+            if t.table_id == table_id:
+                return t
+        return None
+
+    def add_players_names_to_table(self, mess_parts: list[str]):
+        table = self.find_table_by_id(int(mess_parts[1]))
+        for i in range(2, len(mess_parts), 1):
+            table.users_names.append(mess_parts[i])

@@ -38,6 +38,7 @@ class LobbyScreen(Screen):
     def Start(self, window, choice):
         self.window = window
         self.choice = choice
+        self.table_button_array = []
 
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/background_lobby.png')
@@ -58,14 +59,10 @@ class LobbyScreen(Screen):
         # buttonc = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], 0.5, 3)
         # buttona = self.create_table(self.tables_positions[1][0], self.tables_positions[1][1], 0.5, 1)
 
-        table_button_array, lobby_add_table = self.display_tables(self.number_of_tables,
+        self.table_button_array, lobby_add_table = self.display_tables(self.number_of_tables,
                                                                   self.array_of_number_of_players, self.array_of_bets)
-        if table_button_array[2].tool_click_left():
-            print("3")
-        if table_button_array[1].tool_click_left():
-            print("2")
-        if table_button_array[0].tool_click_left():
-            print("1")
+        
+        
 
         pygame.display.update()
 

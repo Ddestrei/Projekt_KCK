@@ -11,6 +11,8 @@ for i, res in enumerate(resolutions):
 
 choice = int(input("Twój wybór: ")) - 1
 
+running = True
+
 
 class Tool():
     def __init__(self, x, y, image_name):

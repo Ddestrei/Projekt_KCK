@@ -2,6 +2,7 @@ import pygame
 
 pygame.init()
 from Screen import *
+from Slider import *
 
 
 # to-do list:
@@ -61,6 +62,11 @@ class LobbyScreen(Screen):
 
         self.table_button_array, lobby_add_table = self.display_tables(self.number_of_tables,
                                                                   self.array_of_number_of_players, self.array_of_bets)
+
+        if lobby_add_table is not None and lobby_add_table.tool_click_left():
+            poz_x, poz_y = scale_position(self.tables_positions[self.number_of_tables][0],self.tables_positions[self.number_of_tables][1], choice)
+            Slider((poz_x, poz_y), (40*choice, 100*choice), 1, 0.5, 2)
+
         
         
 

@@ -33,7 +33,7 @@ while running:
                 password.status_set_1()
                 username.status_set_0()
             # ekran startowy dante
-            if button_0.tool_click_left() and current_screen == dante_start_screen:
+            if dante_start_screen_to_dante_blackjack_start_screen.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:

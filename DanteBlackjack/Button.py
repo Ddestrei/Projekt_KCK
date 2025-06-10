@@ -14,10 +14,16 @@ y_button = 452
 x_button, y_button = scale_position(x_button, y_button, choice)
 button_log = Button(x_button, y_button, "P_Zaloguj.png")
 
-x_button = 50
-y_button = 50
+x_button = 1114
+y_button = 5
 x_button, y_button = scale_position(x_button, y_button, choice)
-button_0 = Button(x_button, y_button, "PP.png")
+dante_start_screen_to_dante_blackjack_start_screen = Button(x_button, y_button, "dp.png")
+
+x_button = 1097
+y_button = 242
+x_button, y_button = scale_position(x_button, y_button, choice)
+topics_button = Button(x_button, y_button, "topics_button.png")
+
 
 x_button = 650
 y_button = 350

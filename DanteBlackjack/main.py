@@ -52,6 +52,13 @@ while running:
             # ekran wybor stolu
             if current_screen == lobby_screen:
                 current_screen.Start(window, choice)
+                if current_screen.lobby_add_table is not None and current_screen.lobby_add_table.tool_click_left():
+                    poz_x, poz_y = scale_position(current_screen.tables_positions[current_screen.number_of_tables][0],
+                                                  current_screen.tables_positions[current_screen.number_of_tables][1] + 200, choice)
+                    get_min_bet = Button(poz_x, poz_y, "hit.png")
+                    if get_min_bet.tool_click_left():
+                        print("33")
+
                 for i in range(len(current_screen.table_button_array)):
                     if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
                         print(i)

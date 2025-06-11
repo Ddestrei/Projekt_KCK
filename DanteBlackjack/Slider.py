@@ -2,7 +2,7 @@ from Tool import *
 
 
 class Slider:
-    def __int__(self, pos: tuple, size: tuple, initial_val: float, min: float, max: float):
+    def __int__(self, pos: tuple, size: tuple, initial_val: float, min_val: float, max_val: float):
         self.pos = pos
         self.size = size
 
@@ -10,8 +10,8 @@ class Slider:
         self.slider_right_pos = self.pos[0] + (size[0]//2)
         self.slider_top_pos = self.pos[1] - (size[1]//2)
 
-        self.min = min
-        self.max = max
+        self.min = min_val
+        self.max = max_val
         self.initial_val = (self.slider_right_pos-self.slider_left_pos)*initial_val # <- percentage
 
         self.container_rect = pygame.Rect(self.slider_left_pos, self.slider_top_pos, self.size[0], self.size[1])

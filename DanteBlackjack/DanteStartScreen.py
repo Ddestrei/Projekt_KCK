@@ -12,5 +12,5 @@ class DanteStartScreen(Screen):
         window.blit(background, (0, 0))
         dante_start_screen_to_dante_blackjack_start_screen.tool_draw(window)
         #punkty_pomocy_image = pygame.font.Font.render(pygame.font.SysFont("arial", 48),f"Punkty pomocy: {self.punkty_pomocy}", True,(0, 0, 0)) #tymczasowe
-        #window.blit(punkty_pomocy_image, (0, 0))
+        # pygame
         pygame.display.update()

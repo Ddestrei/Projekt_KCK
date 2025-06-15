@@ -600,9 +600,9 @@ class Game:
 
 
 
-
-
-
+# Main game loop
+#game starts here
+# ...
 
 gameOver = False
 while gameOver is False:

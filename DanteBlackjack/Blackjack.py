@@ -600,10 +600,10 @@ class Game:
 
 
 
-
-
-
-
+# Loop
+# Game Loop
+#Statrs game
+# . . .
 gameOver = False
 while gameOver is False:
     game = Game()

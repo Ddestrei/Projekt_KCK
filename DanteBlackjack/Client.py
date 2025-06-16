@@ -23,7 +23,7 @@ from User import User
 
 class Client:
     def __init__(self):
-        self.is_connected = False
+        self.is_connected = True
         host = socket.gethostname()  # as both code is running on same pc
         port = 5000  # socket server port number
         self.user = None

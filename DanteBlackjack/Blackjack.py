@@ -256,12 +256,11 @@ class Game:
     def __init__(self):
         self.dealer = Dealer()
         self.players = []
-        self.num_of_players = 4
+        self.num_of_players = 3
         self.turnOver= False
-        self.players.append(Player("Adam"))
+        self.players.append(Player("Kasia"))
         self.players.append(Player("Kacper"))
-        self.players.append(Player("Adam"))
-        self.players.append(Player("Adam"))
+        self.players.append(Player("Oliwia"))
     def fixCoordinates(self):
         if self.num_of_players == 1:
             self.players[0].x = round(669*percents[choice])

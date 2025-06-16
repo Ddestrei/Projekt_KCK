@@ -259,7 +259,7 @@ class Game:
         self.num_of_players = 3
         self.turnOver= False
         self.players.append(Player("Kasia"))
-        self.players.append(Player("Anna"))
+        self.players.append(Player("Kacper"))
         self.players.append(Player("Oliwia"))
     def fixCoordinates(self):
         if self.num_of_players == 1:

@@ -48,6 +48,7 @@ class TableManager:
         for user in table.users:
             names += user.name
             names += " "
+            names += user.album_number
         return names
 
     def find_table_by_id(self, table_id):

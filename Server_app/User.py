@@ -1,5 +1,5 @@
 import string
-
+from Player import Player
 
 class User:
     def __init__(self, name: string, album_number: string, email: string, password: string, points: int,
@@ -14,6 +14,15 @@ class User:
         self.loses = loses
         self.is_admin = is_admin
         self.is_logged = False
+        self.player = Player()
+        self.sender = None
+        self.hit_stand_double = False
+        self.hit = False
+        self.hit_stand_double = False
+        self.double = False
+
+    def add_sender(self, sender):
+        self.sender = sender
 
     def __str__(self):
         print("Name: ", self.name)

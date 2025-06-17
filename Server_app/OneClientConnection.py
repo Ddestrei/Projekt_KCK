@@ -37,12 +37,9 @@ class OneClientConnection:
             nr_album = mess_parts[1]
             password = mess_parts[2]
             self.user = self.dataBase.get_user(nr_album)
-            if self.user is None:
-                self.sender("user_not_found")
-            elif self.user.password != password:
-                self.sender("password_incorrect")
-            elif self.user.is_logged:
-                self.sender("user_already_logged")
+            self.user.add_sender(self.sender)
+            if self.user is None or self.user.password != password or self.user.is_logged:
+                self.sender("cannot_log_in")
             else:
                 self.sender(self.user.send_format())
                 self.sender(self.tableManager.send_tables())

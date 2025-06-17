@@ -31,7 +31,7 @@ class LobbyScreen(Screen):
             (545, 577),
             (979, 577)
         ]
-        self.number_of_tables = 6
+        self.number_of_tables = 3
         self.array_of_number_of_players = (2, 3, 1, 2, 1, 4)
         self.array_of_bets = (0.5, 1, 1.5, 1, 2, 3)
 
@@ -39,6 +39,7 @@ class LobbyScreen(Screen):
         self.window = window
         self.choice = choice
         self.table_button_array = []
+        self.lobby_add_table = None
 
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/background_lobby.png')
@@ -51,7 +52,8 @@ class LobbyScreen(Screen):
         lobby_blackspace_box = Tool(x, y, "lobby_blackspace.png")
         lobby_blackspace_box.tool_draw(window)
 
-        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", scale_font(36, choice)).render(
+        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+                                                 scale_font(36, choice)).render(
             "Choose table to play", True,
             (242, 120, 27))  # Renderowanie tekstu
         self.window.blit(text_lobby_blackspace, scale_position(574, 50, choice))  # Wyświetlenie tekstu
@@ -59,10 +61,16 @@ class LobbyScreen(Screen):
         # buttonc = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], 0.5, 3)
         # buttona = self.create_table(self.tables_positions[1][0], self.tables_positions[1][1], 0.5, 1)
 
-        self.table_button_array, lobby_add_table = self.display_tables(self.number_of_tables,
-                                                                  self.array_of_number_of_players, self.array_of_bets)
-        
-        
+        self.table_button_array, self.lobby_add_table = self.display_tables(self.number_of_tables,
+                                                                       self.array_of_number_of_players,
+                                                                       self.array_of_bets)
+
+
+            # slider = Slider((100, 30), (40 * choice, 100 * choice), 1, 0.5, 2)
+            # slider.render(self.window)
+            # slider.set_discrete_value(0.5)
+
+        # print(slider.get_value())
 
         pygame.display.update()
 
@@ -71,7 +79,8 @@ class LobbyScreen(Screen):
         table_button = Button(button_x, button_y, "lobby_table.png")
         table_button.tool_draw(self.window)
 
-        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf", scale_font(36, self.choice)).render(
+        text_lobby_blackspace = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+                                                 scale_font(36, self.choice)).render(
             f"{bet}", True, (179, 38, 30))
         button_x, button_y = scale_position(table_x + 164, table_y + 8, self.choice)
         self.window.blit(text_lobby_blackspace, (button_x, button_y))

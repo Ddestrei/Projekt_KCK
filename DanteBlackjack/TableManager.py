@@ -10,8 +10,8 @@ class TableManager:
 
     def initialise(self, mess_parts: list[str]):
         amount_tables = int(mess_parts[1])
-        for i in range(amount_tables):
-            self.tables.append(Table(int(mess_parts[i + 2]), int(mess_parts[i + 3]), int(mess_parts[i + 4])))
+        for i in range(2, amount_tables, 3):
+            self.tables.append(Table(int(mess_parts[i + 0]), int(mess_parts[i + 1]), int(mess_parts[i + 2])))
 
     def add_new_table(self, mess_parts: list[str]):
         table = Table(int(mess_parts[1]), int(mess_parts[2]), 1)
@@ -29,5 +29,5 @@ class TableManager:
 
     def add_players_names_to_table(self, mess_parts: list[str]):
         table = self.find_table_by_id(int(mess_parts[1]))
-        for i in range(2, len(mess_parts), 1):
-            table.users_names.append(mess_parts[i])
+        for i in range(2, len(mess_parts), 2):
+            table.users_names.append(mess_parts[i], mess_parts[i + 1])

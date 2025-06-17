@@ -31,6 +31,8 @@ class Client:
         client_socket.connect((host, port))  # connect to the server
         self.conn = client_socket
         self.is_connected = True
+        self.is_logged = False
+        self.received_logging_answer = False
         self.tableManager = None
         self.receiver_thread = threading.Thread(target=self.receiver)
         self.receiver_thread.start()
@@ -55,6 +57,9 @@ class Client:
             self.tableManager.increase_number_of_player(int(mess_parts[1]))
         elif mess_parts[0] == "players_in_table":
             self.tableManager.add_players_names_to_table(mess_parts)
+        elif mess_parts[0] == "cannot_log_in":
+            self.is_logged = False
+            self.received_logging_answer = True
         self.sender("received")
 
     def sender(self, message: string):
@@ -67,6 +72,8 @@ class Client:
         self.user = User(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4], int(mess_parts[5]),
                          int(mess_parts[6]), int(mess_parts[7]), int(mess_parts[8]), int(mess_parts[9]))
         self.user.__str__()
+        self.is_logged = True
+        self.received_logging_answer = True
 
     def create_table(self, min_bet: int):
         self.sender("create_table" + " " + str(min_bet))

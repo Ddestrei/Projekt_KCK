@@ -14,8 +14,8 @@ dante_blackjack_start_screen = DanteBlackjackStartScreen()
 lobby_screen = LobbyScreen()
 rules_screen = RulesScreen()
 current_screen = login_dante_screen
+button_stop = False
 
-running = True
 while running:
     current_screen.Start(window, choice)
     for event in pygame.event.get():
@@ -33,12 +33,13 @@ while running:
                 password.status_set_1()
                 username.status_set_0()
             # ekran startowy dante
-            if button_0.tool_click_left() and current_screen == dante_start_screen:
+            if dante_start_screen_to_dante_blackjack_start_screen.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen
             if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
+                button_stop = True
                 current_screen = lobby_screen
 
             # ekran zasad
@@ -49,9 +50,15 @@ while running:
                 current_screen = dante_blackjack_start_screen
 
             # ekran wybor stolu
+            if current_screen == lobby_screen:
+                current_screen.Start(window, choice)
+                for i in range(len(current_screen.table_button_array)):
+                    if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
+                        print(i)
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
         # ekran logowania
         if current_screen == login_dante_screen:
             username.writing(event)
             password.writing(event)
+        button_stop = False

@@ -5,16 +5,25 @@ from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
 
+# ustawienie klienta
+from Client import Client
+from TableManager import TableManager
+client = Client()
+tableManager = TableManager()
+client.set_table_manager(tableManager=tableManager)
 
 window = pygame.display.set_mode(resolutions[choice])
 
-login_dante_screen = LoginDanteScreen()
+login_dante_screen = LoginDanteScreen(client)
 dante_start_screen = DanteStartScreen()
-dante_blackjack_start_screen = DanteBlackjackStartScreen()
-lobby_screen = LobbyScreen()
+dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
+lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
 current_screen = login_dante_screen
 button_stop = False
+
+
+
 
 while running:
     current_screen.Start(window, choice)
@@ -24,8 +33,13 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             # ekran logowania
             if button_log.tool_click_left() and current_screen == login_dante_screen:
-                username.status_set_0()
-                current_screen = dante_start_screen
+                # dodanie możliwości logowania do gry
+                login_dante_screen.login()
+                while client.received_logging_answer is False:
+                    pass
+                if client.is_logged:
+                    username.status_set_0()
+                    current_screen = dante_start_screen
             if username.tool_click_left() and current_screen == login_dante_screen:
                 username.status_set_1()
                 password.status_set_0()

@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 from Screen import *
-
+from Client import Client
 
 # to-do list:
 # -create screen skeleton with [background], [back-button] in top left corner of screen,
@@ -20,7 +20,8 @@ from Screen import *
 
 
 class LobbyScreen(Screen):
-    def __init__(self):
+    def __init__(self, client: Client):
+        self.client = client
         self.choice = None
         self.window = None
         self.tables_positions = [
@@ -31,11 +32,12 @@ class LobbyScreen(Screen):
             (545, 577),
             (979, 577)
         ]
-        self.number_of_tables = 3
-        self.array_of_number_of_players = (2, 3, 1, 2, 1, 4)
-        self.array_of_bets = (0.5, 1, 1.5, 1, 2, 3)
+        self.number_of_tables = 0
+        self.array_of_number_of_players = []
+        self.array_of_bets = []
 
     def Start(self, window, choice):
+        self.initialise()
         self.window = window
         self.choice = choice
         self.table_button_array = []
@@ -146,3 +148,9 @@ class LobbyScreen(Screen):
             lobby_add_table.tool_draw(self.window)
 
         return table_button_array, lobby_add_table
+
+    def initialise(self):
+        self.number_of_tables = self.client.tableManager.tables.__len__()
+        for table in self.client.tableManager.tables:
+            self.array_of_number_of_players.append(table.amount_users)
+            self.array_of_bets.append(table.min_bet)

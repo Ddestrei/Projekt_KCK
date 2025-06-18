@@ -12,7 +12,7 @@ from TableManager import TableManager
 class Server:
     def __init__(self):
         self.database = DataBase()
-        self.tableManager = TableManager(self.add_table_info)
+        self.tableManager = TableManager(self.add_table_info, self.add_user_to_table)
         host = socket.gethostname()
         port = 5000  # initiate port no above 1024
         self.clients = []

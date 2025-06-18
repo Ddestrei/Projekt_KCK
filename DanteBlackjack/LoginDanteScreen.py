@@ -1,6 +1,12 @@
+from Client import Client
 from Screen import *
 
+
 class LoginDanteScreen(Screen):
+
+    def __init__(self, client: Client):
+        self.client = client
+
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/Ekran_Logowania.png')
@@ -12,3 +18,6 @@ class LoginDanteScreen(Screen):
         password.tool_draw(window)
         password.render_text(window)
         pygame.display.update()
+
+    def login(self):
+        self.client.login_to_server(username.get_text(),password.get_text())

@@ -2,15 +2,20 @@ import pygame
 
 pygame.init()
 from Screen import *
-
+from Client import Client
 
 class DanteBlackjackStartScreen(Screen):
-    def __init__(self):
-        self.name = "Whatever"
-        self.points = 10
-        self.IsAdmin = False
+    def __init__(self, client: Client):
+        self.IsAdmin = None
+        self.points = None
+        self.name = None
+        self.client = client
 
     def Start(self, window, choice):
+        # dodanie informacji o użytkowniku
+        self.name = self.client.user.name
+        self.points = self.client.user.points
+        self.IsAdmin = self.client.user.is_admin
         pygame.time.Clock().tick(60)
         background = pygame.image.load('DanteBlackJack/Grafika/Tla/StartScreen_background.png')
         background = pygame.transform.scale(background, (resolutions[choice]))

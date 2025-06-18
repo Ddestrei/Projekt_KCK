@@ -38,6 +38,8 @@ class LobbyScreen(Screen):
 
     def Start(self, window, choice):
         self.initialise()
+        if self.number_of_tables == 0:
+            self.client.create_table(1)
         self.window = window
         self.choice = choice
         self.table_button_array = []

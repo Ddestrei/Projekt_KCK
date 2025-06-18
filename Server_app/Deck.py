@@ -1,4 +1,6 @@
-from random import random
+import random
+
+from Server_app.Card import Card
 
 
 class Deck:
@@ -35,20 +37,7 @@ class Deck:
                 elif number == 14:
                     label = "A"
 
-                image_name = f"{label}.png"
-                card_type = random.randint(1, 4)
-                image = None
-                if card_type == 1:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_Dante/{image_name}")
-                if card_type == 2:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_Mech/{image_name}")
-                if card_type == 3:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_PL/{image_name}")
-                if card_type == 4:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_WEEIA/{image_name}")
-                card = Card(full_suit_name, color, label, value, image)
-                card.image = pygame.transform.scale(image, (
-                    round(96 * percents[choice]), round(144 * percents[choice])))  # Resize if needed
+                card = Card(full_suit_name, color, label, value)
                 self.cards.append(card)
 
     def getCard(self):

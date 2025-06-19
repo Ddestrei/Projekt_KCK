@@ -4,7 +4,7 @@ from DanteBlackjackStartScreen import *
 from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
-
+from Blackjack import GameScreen
 # ustawienie klienta
 from Client import Client
 from TableManager import TableManager
@@ -19,6 +19,7 @@ dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
 lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
+GameScreen = GameScreen()
 current_screen = login_dante_screen
 button_stop = False
 
@@ -69,8 +70,12 @@ while running:
                 for i in range(len(current_screen.table_button_array)):
                     if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
                         print(i)
+                        current_screen = GameScreen
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
+            if current_screen == GameScreen:
+                GameScreen.Start(window, choice)
+
         # ekran logowania
         if current_screen == login_dante_screen:
             username.writing(event)

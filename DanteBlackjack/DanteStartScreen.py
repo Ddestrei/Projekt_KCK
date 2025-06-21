@@ -7,7 +7,7 @@ class DanteStartScreen(Screen):
         self.punkty_pomocy = 10 #tymczasowe
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
-        background = pygame.image.load('DanteBlackJack/Grafika/Tla/dante_start_screen_background.png')
+        background = pygame.image.load('Grafika/Tla/dante_start_screen_background.png')
         background = pygame.transform.scale(background, (resolutions[choice]))
         window.blit(background, (0, 0))
         dante_start_screen_to_dante_blackjack_start_screen.tool_draw(window)

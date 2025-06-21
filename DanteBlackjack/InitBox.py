@@ -28,7 +28,7 @@ class InitBox(Tool):
 
 font_0_size = round(20 * percents[choice])
 
-font_0 = pygame.font.Font("DanteBlackjack/Grafika/Czcionki/Aptos.ttf", font_0_size)
+font_0 = pygame.font.Font("Grafika/Czcionki/Aptos.ttf", font_0_size)
 
 x_button = 486
 y_button = 318

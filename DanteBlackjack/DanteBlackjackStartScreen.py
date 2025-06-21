@@ -4,6 +4,7 @@ pygame.init()
 from Screen import *
 from Client import Client
 
+
 class DanteBlackjackStartScreen(Screen):
     def __init__(self, client: Client):
         self.IsAdmin = None
@@ -17,7 +18,7 @@ class DanteBlackjackStartScreen(Screen):
         self.points = self.client.user.points
         self.IsAdmin = self.client.user.is_admin
         pygame.time.Clock().tick(60)
-        background = pygame.image.load('DanteBlackJack/Grafika/Tla/StartScreen_background.png')
+        background = pygame.image.load('Grafika/Tla/StartScreen_background.png')
         background = pygame.transform.scale(background, (resolutions[choice]))
         window.blit(background, (0, 0))
 
@@ -37,19 +38,17 @@ class DanteBlackjackStartScreen(Screen):
         icon_box = Tool(x, y, "/StartScreenGraphics/icon.png")
         icon_box.tool_draw(window)
 
-        name_text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+        name_text = pygame.font.Font("Grafika/Czcionki/Aptos.ttf",
                                      scale_font(34, choice)).render(
             self.name, True,
             (255, 255, 255))
         window.blit(name_text, scale_position(199, 145, choice))
 
-        points_text = pygame.font.Font("DanteBlackJack/Grafika/Czcionki/Aptos.ttf",
+        points_text = pygame.font.Font("Grafika/Czcionki/Aptos.ttf",
                                        scale_font(30, choice)).render(
             "POINTS: " + str(self.points), True,
             (255, 255, 255))
         window.blit(points_text, scale_position(199, 215, choice))
-
-
 
         StartGameButton.tool_draw(window)
         RulesButton.tool_draw(window)

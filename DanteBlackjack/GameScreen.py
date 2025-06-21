@@ -1,82 +1,28 @@
-import random
+from Screen import *
+from Dealer import Dealer
+from Player import Player
 import sys
-
 from pygame.locals import *
 
-from Button import *
+screenWidth, screenHeight = resolutions[choice]
+halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
+black, blue, white, orange, red = (0, 0, 0), (51, 235, 255), (255, 255, 255), (255, 165, 0), (255, 0, 0)
+fontType = 'Comic Sans MS'
+text_Title = pygame.font.SysFont(fontType, 80)
+text_SubHeading = pygame.font.SysFont(fontType, 45)
+text_Heading = pygame.font.SysFont(fontType, 60)
+text_Bold = pygame.font.SysFont(fontType, 30)
+text_Normal = pygame.font.SysFont(fontType, 20)
+text_Small = pygame.font.SysFont(fontType, 10)
 
 
+class GameScreen(Screen):
+    def __init__(self):
+        self.choice = None
+        self.screen = None
+        self.background = None
 
-
-
-
-
-
-
-
-
-
-class Card:
-
-    def __init__(self, suit, color, label, value, image):
-        self.image = None
-        self.suit = suit
-        self.color = color
-        self.label = label
-        self.value = value
-
-
-
-
-
-
-
-
-
-
-
-class Dealer:
-    def __init__(self, screen):
-        self.screen = screen
-        self.deck = Deck()
-        self.deck.createDeck()
-        self.deck.shuffleDeck()
-        self.hand = []
-        self.low_count = 0
-        self.high_count = 0
-        self.count = 0
-        self.x = round(672 * percents[choice])
-        self.y = round(450 * percents[choice])
-        self.hide_second_card = True
-
-    def createDealerHand(self):
-        for i in range(1, 3):
-            self.addCard()
-
-    def dealCard(self):
-        return self.deck.getCard()
-
-    def addCard(self):
-        dealerCard = self.dealCard()
-        self.hand.append(dealerCard)
-        self.count += dealerCard.value
-        self.countAce()
-
-    def countAce(self):
-        self.low_count = sum(card.value for card in self.hand)
-        self.high_count = self.low_count
-        has_ace = any(card.label == "A" for card in self.hand)
-
-        if has_ace:
-            self.high_count += 10
-            if self.high_count > 21:
-                self.high_count = self.low_count
-
-        self.count = self.high_count if self.high_count <= 21 else self.low_count
-
-
-class Game:
-    def __init__(self, window):
+    def Start(self, window, choice):
         self.screen = window
         self.dealer = Dealer(self.screen)
         self.players = []
@@ -85,6 +31,15 @@ class Game:
         self.players.append(Player("Kasia"))
         self.players.append(Player("Kacper"))
         self.players.append(Player("Oliwia"))
+        self.choice = choice
+        pygame.time.Clock().tick(60)
+        self.background = pygame.image.load("grafika/tla/table.png")
+        self.background = pygame.transform.scale(self.background, (resolutions[self.choice]))
+        self.screen.blit(self.background, (0, 0))
+        pygame.display.update()
+
+    def BackgroudGetter(self):
+        return self.background
 
     def fixCoordinates(self):
         if self.num_of_players == 1:
@@ -148,7 +103,7 @@ class Game:
             current_player = self.players[i]
 
             if current_player.bank < 0.5:
-                self.screen.blit(pokerGreen, (0, 0))
+                self.screen.blit(self.BackgroudGetter(), (0, 0))
                 self.add_text("Player " + str(i + 1 + number_of_deleted_players) + " hasn't enough points to play",
                               text_Bold, self.screen, halfWidth, 100, red)
                 number_of_deleted_players += 1
@@ -166,7 +121,7 @@ class Game:
 
             bet_placed = False
             while not bet_placed:
-                self.screen.blit(pokerGreen, (0, 0))
+                self.screen.blit(self.BackgroudGetter(), (0, 0))
 
                 if leave_button.draw():
                     pygame.quit()
@@ -249,7 +204,7 @@ class Game:
             self.add_text(text, text_Small, self.screen, self.dealer.x + 40, self.dealer.y - 10, red)
 
     def redraw_game_screen(self):
-        self.screen.blit(pokerGreen, (0, 0))
+        self.screen.blit(self.BackgroudGetter(), (0, 0))
         self.draw_all_hands()
         hit_button.draw()
         stand_button.draw()
@@ -316,7 +271,7 @@ class Game:
             stand_button.set_enabled(True)
             double_button.set_enabled(True)
             while turn_active:
-                self.screen.blit(pokerGreen, (0, 0))
+                self.screen.blit(self.BackgroudGetter(), (0, 0))
                 self.draw_all_hands()
                 self.add_text(f"Player's {self.players.index(player) + 1} turn", text_Bold, self.screen, halfWidth, 40,
                               orange)
@@ -365,7 +320,7 @@ class Game:
 
         dealer_turn_over = False
         while not dealer_turn_over:
-            self.screen.blit(pokerGreen, (0, 0))
+            self.screen.blit(self.BackgroudGetter(), (0, 0))
             self.draw_all_hands()
             self.add_text("Revealing cards...", text_Bold, self.screen, halfWidth, 40, red)
 
@@ -393,7 +348,7 @@ class Game:
         start_time = pygame.time.get_ticks()
 
         while pygame.time.get_ticks() - start_time < result_display_time:
-            self.screen.blit(pokerGreen, (0, 0))
+            self.screen.blit(self.BackgroudGetter(), (0, 0))
             self.add_text("End of this turn", text_Bold, self.screen, halfWidth, 40, red)
             self.draw_all_hands()
 
@@ -431,24 +386,3 @@ class Game:
     def ResetStats(self):
         for p in self.players:
             p.ResetHand()
-
-# main game loop starts here
-
-# gameOver = False
-# while gameOver is False:
-# game = Game()
-# game.fixCoordinates()
-# roundOver = False
-# pygame.display.update()
-# while game.turnOver == False:
-#   game.placing_bets()
-#   if game.num_of_players==0:
-#        gameOver = True
-#   if game.turnOver ==True:
-#       break
-#    game.newDeck()
-#   game.createHands()
-#   game.playTurn()
-#  game.dealers_turn()
-#  game.calculateResults()
-#  game.ResetStats()

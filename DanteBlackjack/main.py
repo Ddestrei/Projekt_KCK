@@ -4,7 +4,7 @@ from DanteBlackjackStartScreen import *
 from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
-from Blackjack import GameScreen
+from GameScreen import GameScreen
 # ustawienie klienta
 from Client import Client
 from TableManager import TableManager
@@ -24,17 +24,8 @@ current_screen = login_dante_screen
 button_stop = False
 
 #Creating basic text for blackjack
-screenWidth,screenHeight = resolutions[choice]
-halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
-pokerGreen = GameScreen.BackgroudGetter()
-black, blue, white, orange, red = (0, 0, 0), (51, 235, 255), (255, 255, 255), (255, 165, 0), (255, 0, 0)
-fontType = 'Comic Sans MS'
-text_Title = pygame.font.SysFont(fontType, 80)
-text_SubHeading = pygame.font.SysFont(fontType, 45)
-text_Heading = pygame.font.SysFont(fontType, 60)
-text_Bold = pygame.font.SysFont(fontType, 30)
-text_Normal = pygame.font.SysFont(fontType, 20)
-text_Small = pygame.font.SysFont(fontType, 10)
+
+
 
 
 
@@ -85,8 +76,8 @@ while running:
                         current_screen = GameScreen
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
-            if current_screen == GameScreen:
-                GameScreen.Start(window, choice)
+            #if current_screen == GameScreen:
+            #    GameScreen.Start(window, choice)
 
         # ekran logowania
         if current_screen == login_dante_screen:

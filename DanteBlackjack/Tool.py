@@ -18,7 +18,7 @@ class Tool():
     def __init__(self, x, y, image_name):
         self.x = x
         self.y = y
-        self.tool_image = pygame.image.load(f"DanteBlackJack/Grafika/Obiekty/{image_name}")
+        self.tool_image = pygame.image.load(f"Grafika/Obiekty/{image_name}")
         if choice != 2:
             self.tool_image = pygame.transform.scale(self.tool_image, (
             int(percents[choice] * self.tool_image.get_width()), int(percents[choice] * self.tool_image.get_height())))

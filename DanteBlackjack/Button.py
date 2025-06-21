@@ -1,5 +1,5 @@
 from Tool import *
-from Blackjack import GameButton,brighten_surface
+from GameButton import GameButton
 
 class Button(Tool):
     def __init__(self, x, y, button_name):
@@ -59,6 +59,13 @@ x_button = 651
 y_button = 955
 x_button, y_button = scale_position(x_button, y_button, choice)
 RulesScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
+
+def brighten_surface(surface, brightness=40):
+    hover = surface.copy()
+    brighten_layer = pygame.Surface(surface.get_size())
+    brighten_layer.fill((brightness, brightness, brightness, 0))  # RGB only
+    hover.blit(brighten_layer, (0, 0), special_flags=pygame.BLEND_RGB_ADD)
+    return hover
 
 #buttons for blackjack
 screenWidth,screenHeight = resolutions[choice]

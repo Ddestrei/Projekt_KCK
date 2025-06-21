@@ -60,6 +60,7 @@ y_button = 955
 x_button, y_button = scale_position(x_button, y_button, choice)
 RulesScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
 
+#buttons for blackjack
 screenWidth,screenHeight = resolutions[choice]
 halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
 bet15_img = pygame.image.load("Grafika/Obiekty/bet1,5p.png")

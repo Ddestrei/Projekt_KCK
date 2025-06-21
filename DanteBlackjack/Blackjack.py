@@ -1,7 +1,4 @@
 import random
-from contextlib import nullcontext
-import time
-import pygame
 from pygame.locals import *
 import sys
 from main import *
@@ -17,9 +14,9 @@ class GameScreen():
         self.window = window
         self.choice = choice
         pygame.time.Clock().tick(60)
-        background = pygame.image.load("grafika/tla/table.png")
-        background = pygame.transform.scale(background, (resolutions[self.choice]))
-        self.window.blit(background, (0, 0))
+        self.background = pygame.image.load("grafika/tla/table.png")
+        self.background = pygame.transform.scale(self.background, (resolutions[self.choice]))
+        self.window.blit(self.background, (0, 0))
 
     def BackgroudGetter(self):
         return self.background
@@ -27,7 +24,7 @@ class GameScreen():
 
 
 class GameButton:
-    def __init__(self, x, y, image,screen, scale=1, hover_image=None, enabled=True):
+    def __init__(self, x, y, image, scale=1, hover_image=None, enabled=True):
         width = image.get_width()
         height = image.get_height()
         self.base_image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
@@ -36,7 +33,7 @@ class GameButton:
         self.rect = self.image.get_rect(topleft=(x, y))
         self.clicked = False
         self.enabled = enabled
-        self.screen = screen
+        self.screen = window
 
     def draw(self):
         action = False
@@ -53,6 +50,7 @@ class GameButton:
             if not self.clicked:
                 self.clicked = True
                 action = True
+                # Add action
         elif not pygame.mouse.get_pressed()[0]:
             self.clicked = False
 
@@ -213,8 +211,8 @@ class Dealer:
 
 
 class Game:
-    def __init__(self,screen):
-        self.screen = screen
+    def __init__(self):
+        self.screen = window
         self.dealer = Dealer(self.screen)
         self.players = []
         self.num_of_players = 3
@@ -567,39 +565,23 @@ class Game:
 
 #main game loop starts here
 
-
-#Creating basic text itp
-screenWidth,screenHeight = resolutions[choice]
-halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
-pokerGreen = GameScreen.BackgroudGetter(GameScreen.BackgroudGetter())
-black, blue, white, orange, red = (0, 0, 0), (51, 235, 255), (255, 255, 255), (255, 165, 0), (255, 0, 0)
-fontType = 'Comic Sans MS'
-text_Title = pygame.font.SysFont(fontType, 80)
-text_SubHeading = pygame.font.SysFont(fontType, 45)
-text_Heading = pygame.font.SysFont(fontType, 60)
-text_Bold = pygame.font.SysFont(fontType, 30)
-text_Normal = pygame.font.SysFont(fontType, 20)
-text_Small = pygame.font.SysFont(fontType, 10)
-
-
-
-gameOver = False
-while gameOver is False:
-    game = Game(window)
-    game.fixCoordinates()
-    roundOver = False
-    pygame.display.update()
-    while game.turnOver == False:
-        game.placing_bets()
-        if game.num_of_players==0:
-            gameOver = True
-        if game.turnOver ==True:
-            break
-        game.newDeck()
-        game.createHands()
-        game.playTurn()
-        game.dealers_turn()
-        game.calculateResults()
-        game.ResetStats()
+#gameOver = False
+#while gameOver is False:
+   # game = Game()
+   # game.fixCoordinates()
+    #roundOver = False
+    #pygame.display.update()
+    #while game.turnOver == False:
+     #   game.placing_bets()
+     #   if game.num_of_players==0:
+    #        gameOver = True
+     #   if game.turnOver ==True:
+     #       break
+    #    game.newDeck()
+     #   game.createHands()
+     #   game.playTurn()
+      #  game.dealers_turn()
+      #  game.calculateResults()
+      #  game.ResetStats()
 
 

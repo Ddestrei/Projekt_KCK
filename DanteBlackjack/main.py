@@ -23,6 +23,18 @@ GameScreen = GameScreen()
 current_screen = login_dante_screen
 button_stop = False
 
+#Creating basic text for blackjack
+screenWidth,screenHeight = resolutions[choice]
+halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
+pokerGreen = GameScreen.BackgroudGetter()
+black, blue, white, orange, red = (0, 0, 0), (51, 235, 255), (255, 255, 255), (255, 165, 0), (255, 0, 0)
+fontType = 'Comic Sans MS'
+text_Title = pygame.font.SysFont(fontType, 80)
+text_SubHeading = pygame.font.SysFont(fontType, 45)
+text_Heading = pygame.font.SysFont(fontType, 60)
+text_Bold = pygame.font.SysFont(fontType, 30)
+text_Normal = pygame.font.SysFont(fontType, 20)
+text_Small = pygame.font.SysFont(fontType, 10)
 
 
 

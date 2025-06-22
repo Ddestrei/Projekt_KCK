@@ -28,7 +28,7 @@ class OneClientConnection:
 
     def sender(self, message):
         self.conn.send(message.encode())
-        self.conn.recv(1024).decode()
+        print("Server send: " + message)
 
     def read_mess(self, message):
         mess_parts = message.split(" ")
@@ -37,7 +37,7 @@ class OneClientConnection:
             nr_album = mess_parts[1]
             password = mess_parts[2]
             self.user = self.dataBase.get_user(nr_album)
-            self.user.add_sender(self.sender)
+            self.user.add_sender_and_receiver(self.sender, self.receiver)
             if self.user is None or self.user.password != password or self.user.is_logged:
                 self.sender("cannot_log_in")
             else:
@@ -50,3 +50,14 @@ class OneClientConnection:
         elif mess_parts[0] == "join_to_table":
             self.tableManager.add_player_to_table(int(mess_parts[1]), self.user)
             self.sender("players_in_table" + self.tableManager.return_players_names_in_table((int(mess_parts[1]))))
+        elif mess_parts[0] == "PLACE_BET":
+            self.user.player.bet = float(mess_parts[1])
+        elif mess_parts[0] == "HIT":
+            self.user.hit_stand_double = True
+            self.user.hit = True
+        elif mess_parts[0] == "STAND":
+            self.user.hit_stand_double = True
+            self.user.stand = True
+        elif mess_parts[0] == "DOUBLE":
+            self.user.hit_stand_double = True
+            self.user.double = True

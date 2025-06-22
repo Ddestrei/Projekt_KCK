@@ -1,7 +1,10 @@
-import pygame
 import random
-from Tool import percents, choice
+
+import pygame
+
 from Card import Card
+from Tool import percents, choice
+
 
 class Deck:
 
@@ -50,7 +53,7 @@ class Deck:
                     image = pygame.image.load(f"Grafika/Karty/Znak_WEEIA/{image_name}")
                 card = Card(full_suit_name, color, label, value)
                 card.image = pygame.transform.scale(image, (
-                round(96 * percents[choice]), round(144 * percents[choice])))  # Resize if needed
+                    round(96 * percents[choice]), round(144 * percents[choice])))  # Resize if needed
                 self.cards.append(card)
 
     def getCard(self):
@@ -60,3 +63,8 @@ class Deck:
 
     def shuffleDeck(self):
         return random.shuffle(self.cards)
+
+    def find_card(self, suit: str, color: str, label: str, value: str):
+        for c in self.cards:
+            if c.suit == suit and c.color == color and c.label == label and c.value == int(value):
+                return c

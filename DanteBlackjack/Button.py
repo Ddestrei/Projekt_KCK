@@ -1,5 +1,6 @@
-from Tool import *
 from GameButton import GameButton
+from Tool import *
+
 
 class Button(Tool):
     def __init__(self, x, y, button_name):
@@ -23,7 +24,6 @@ x_button = 1097
 y_button = 242
 x_button, y_button = scale_position(x_button, y_button, choice)
 topics_button = Button(x_button, y_button, "topics_button.png")
-
 
 x_button = 650
 y_button = 350
@@ -60,6 +60,7 @@ y_button = 955
 x_button, y_button = scale_position(x_button, y_button, choice)
 RulesScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
 
+
 def brighten_surface(surface, brightness=40):
     hover = surface.copy()
     brighten_layer = pygame.Surface(surface.get_size())
@@ -67,8 +68,9 @@ def brighten_surface(surface, brightness=40):
     hover.blit(brighten_layer, (0, 0), special_flags=pygame.BLEND_RGB_ADD)
     return hover
 
-#buttons for blackjack
-screenWidth,screenHeight = resolutions[choice]
+
+# buttons for blackjack
+screenWidth, screenHeight = resolutions[choice]
 halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
 bet15_img = pygame.image.load("Grafika/Obiekty/bet1,5p.png")
 bet1_img = pygame.image.load("Grafika/Obiekty/bet1p.png")
@@ -76,16 +78,25 @@ bet05_img = pygame.image.load("Grafika/Obiekty/bet0.5.png")
 hit_img = pygame.image.load("Grafika/Obiekty/hit.png")
 stand_img = pygame.image.load("Grafika/Obiekty/STAND.png")
 double_img = pygame.image.load("Grafika/Obiekty/double.png")
-bet05_button = GameButton(halfWidth - round(300 * percents[choice]), screenHeight - round(100 * percents[choice]), bet05_img, percents[choice], hover_image=brighten_surface(bet05_img))
-bet1_button = GameButton(halfWidth - round(100 * percents[choice]), screenHeight - round(105 * percents[choice]), bet1_img, percents[choice], hover_image=brighten_surface(bet1_img))
-bet15_button = GameButton(halfWidth + round(100 * percents[choice]), screenHeight - round(102 * percents[choice]), bet15_img, percents[choice], hover_image=brighten_surface(bet15_img))
+bet05_button = GameButton(halfWidth - round(300 * percents[choice]),
+                          screenHeight - round(100 * percents[choice]), bet05_img, percents[choice],
+                          hover_image=brighten_surface(bet05_img))
+bet1_button = GameButton(halfWidth - round(100 * percents[choice]),
+                         screenHeight - round(105 * percents[choice]), bet1_img, percents[choice],
+                         hover_image=brighten_surface(bet1_img))
+bet15_button = GameButton(halfWidth + round(100 * percents[choice]),
+                          screenHeight - round(102 * percents[choice]), bet15_img, percents[choice],
+                          hover_image=brighten_surface(bet15_img))
 adjusted_center = halfWidth - 150 * percents[choice] + 50
 button_spacing = 160 * percents[choice]
-card_height = round(144*percents[choice])
+card_height = round(144 * percents[choice])
 
-hit_button = GameButton(adjusted_center - button_spacing, screenHeight - 70, hit_img, percents[choice], hover_image=brighten_surface(hit_img))
-stand_button = GameButton(adjusted_center, screenHeight - 70, stand_img, percents[choice], hover_image=brighten_surface(stand_img))
-double_button = GameButton(adjusted_center + button_spacing, screenHeight - 70, double_img, percents[choice], hover_image=brighten_surface(double_img))
+hit_button = GameButton(adjusted_center - button_spacing, screenHeight - 70, hit_img, percents[choice],
+                        hover_image=brighten_surface(hit_img))
+stand_button = GameButton(adjusted_center, screenHeight - 70, stand_img, percents[choice],
+                          hover_image=brighten_surface(stand_img))
+double_button = GameButton(adjusted_center + button_spacing, screenHeight - 70, double_img, percents[choice],
+                           hover_image=brighten_surface(double_img))
 card_back_img = pygame.image.load("Grafika/Karty/tyl_karty.png")
 card_back_img = pygame.transform.scale(card_back_img, (round(96 * percents[choice]), round(144 * percents[choice])))
 leave_img = pygame.image.load("Grafika/Obiekty/leave.png")

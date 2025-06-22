@@ -1,3 +1,4 @@
+from time import sleep
 
 from DanteStartScreen import *
 from DanteBlackjackStartScreen import *
@@ -19,7 +20,7 @@ dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
 lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
-GameScreen = GameScreen()
+GameScreen = GameScreen(client)
 current_screen = login_dante_screen
 button_stop = False
 
@@ -70,10 +71,21 @@ while running:
             # ekran wybor stolu
             if current_screen == lobby_screen:
                 current_screen.Start(window, choice)
-                for i in range(len(current_screen.table_button_array)):
-                    if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
-                        print(i)
+                if current_screen.lobby_add_table is not None and current_screen.lobby_add_table.tool_click_left():
+                    poz_x, poz_y = scale_position(current_screen.tables_positions[current_screen.number_of_tables][0],
+                                                  current_screen.tables_positions[current_screen.number_of_tables][
+                                                      1] + 200, choice)
+                    get_min_bet = Button(poz_x, poz_y, "hit.png")
+                    if get_min_bet.tool_click_left():
+                        client.create_table(1)
+                        sleep(2)
+                        GameScreen.set_table(client.table)
                         current_screen = GameScreen
+                        print("33")
+                if current_screen != GameScreen:
+                    for i in range(len(current_screen.table_button_array)):
+                        if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
+                            print(i)
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
             #if current_screen == GameScreen:

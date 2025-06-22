@@ -1,8 +1,11 @@
-from Screen import *
-from Dealer import Dealer
-from Player import Player
 import sys
+
 from pygame.locals import *
+
+from Client import Client
+from Dealer import Dealer
+from Screen import *
+from Table import Table
 
 screenWidth, screenHeight = resolutions[choice]
 halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
@@ -17,66 +20,68 @@ text_Small = pygame.font.SysFont(fontType, 10)
 
 
 class GameScreen(Screen):
-    def __init__(self):
+    def __init__(self, client: Client):
         self.choice = None
         self.screen = None
         self.background = None
+        self.table = None
+        self.client = client
 
     def Start(self, window, choice):
         self.screen = window
-        self.dealer = Dealer(self.screen)
-        self.players = []
-        self.num_of_players = 3
-        self.turnOver = False
-        self.players.append(Player("Kasia"))
-        self.players.append(Player("Kacper"))
-        self.players.append(Player("Oliwia"))
         self.choice = choice
         pygame.time.Clock().tick(60)
         self.background = pygame.image.load("grafika/tla/table.png")
         self.background = pygame.transform.scale(self.background, (resolutions[self.choice]))
         self.screen.blit(self.background, (0, 0))
+        self.fixCoordinates()
+        if self.client.user.placing_bets:
+            self.placing_bets()
+        self.redraw_game_screen()
         pygame.display.update()
+
+    def set_table(self, table: Table):
+        self.table = table
 
     def BackgroudGetter(self):
         return self.background
 
     def fixCoordinates(self):
-        if self.num_of_players == 1:
-            self.players[0].x = round(669 * percents[choice])
-            self.players[0].y = round(665 * percents[choice])
-        elif self.num_of_players == 2:
-            self.players[0].x = round(669 * percents[choice])
-            self.players[0].y = round(665 * percents[choice])
-            self.players[1].x = round(1020 * percents[choice])
-            self.players[1].y = round(650 * percents[choice])
-        elif self.num_of_players == 3:
-            self.players[0].x = round(284 * percents[choice])
-            self.players[0].y = round(646 * percents[choice])
-            self.players[1].x = round(669 * percents[choice])
-            self.players[1].y = round(665 * percents[choice])
-            self.players[2].x = round(1020 * percents[choice])
-            self.players[2].y = round(650 * percents[choice])
-        elif self.num_of_players == 4:
-            self.players[0].x = round(294 * percents[choice])
-            self.players[0].y = round(413 * percents[choice])
-            self.players[1].x = round(284 * percents[choice])
-            self.players[1].y = round(646 * percents[choice])
-            self.players[2].x = round(669 * percents[choice])
-            self.players[2].y = round(665 * percents[choice])
-            self.players[3].x = round(1020 * percents[choice])
-            self.players[3].y = round(650 * percents[choice])
-        elif self.num_of_players == 5:
-            self.players[0].x = round(294 * percents[choice])
-            self.players[0].y = round(413 * percents[choice])
-            self.players[1].x = round(284 * percents[choice])
-            self.players[1].y = round(646 * percents[choice])
-            self.players[2].x = round(669 * percents[choice])
-            self.players[2].y = round(665 * percents[choice])
-            self.players[3].x = round(1020 * percents[choice])
-            self.players[3].y = round(650 * percents[choice])
-            self.players[4].x = round(1043 * percents[choice])
-            self.players[4].y = round(410 * percents[choice])
+        if self.table.amount_users == 1:
+            self.table.users_name[0].x = round(669 * percents[choice])
+            self.table.users_name[0].y = round(665 * percents[choice])
+        elif self.table.amount_users == 2:
+            self.table.users_name[0].x = round(669 * percents[choice])
+            self.table.users_name[0].y = round(665 * percents[choice])
+            self.table.users_name[1].x = round(1020 * percents[choice])
+            self.table.users_name[1].y = round(650 * percents[choice])
+        elif self.table.amount_users == 3:
+            self.table.users_name[0].x = round(284 * percents[choice])
+            self.table.users_name[0].y = round(646 * percents[choice])
+            self.table.users_name[1].x = round(669 * percents[choice])
+            self.table.users_name[1].y = round(665 * percents[choice])
+            self.table.users_name[2].x = round(1020 * percents[choice])
+            self.table.users_name[2].y = round(650 * percents[choice])
+        elif self.table.amount_users == 4:
+            self.table.users_name[0].x = round(294 * percents[choice])
+            self.table.users_name[0].y = round(413 * percents[choice])
+            self.table.users_name[1].x = round(284 * percents[choice])
+            self.table.users_name[1].y = round(646 * percents[choice])
+            self.table.users_name[2].x = round(669 * percents[choice])
+            self.table.users_name[2].y = round(665 * percents[choice])
+            self.table.users_name[3].x = round(1020 * percents[choice])
+            self.table.users_name[3].y = round(650 * percents[choice])
+        elif self.table.amount_users == 5:
+            self.table.users_name[0].x = round(294 * percents[choice])
+            self.table.users_name[0].y = round(413 * percents[choice])
+            self.table.users_name[1].x = round(284 * percents[choice])
+            self.table.users_name[1].y = round(646 * percents[choice])
+            self.table.users_name[2].x = round(669 * percents[choice])
+            self.table.users_name[2].y = round(665 * percents[choice])
+            self.table.users_name[3].x = round(1020 * percents[choice])
+            self.table.users_name[3].y = round(650 * percents[choice])
+            self.table.users_name[4].x = round(1043 * percents[choice])
+            self.table.users_name[4].y = round(410 * percents[choice])
 
     def add_text(self, text, font, surface, x, y, text_color):
         textObject = font.render(text, False, text_color)
@@ -96,18 +101,17 @@ class GameScreen(Screen):
                 sys.exit()
 
     def placing_bets(self):
-
         i = 0
         number_of_deleted_players = 0
-        while i < len(self.players):
-            current_player = self.players[i]
+        while i < len(self.table.users_name):
+            current_player = self.table.users_name[i]
 
-            if current_player.bank < 0.5:
+            if current_player.bank < self.table.min_bet:
                 self.screen.blit(self.BackgroudGetter(), (0, 0))
                 self.add_text("Player " + str(i + 1 + number_of_deleted_players) + " hasn't enough points to play",
                               text_Bold, self.screen, halfWidth, 100, red)
                 number_of_deleted_players += 1
-                if leave_button.draw():
+                if leave_button.draw(self.screen):
                     pygame.quit()
                     sys.exit()
                 pygame.display.update()
@@ -123,7 +127,7 @@ class GameScreen(Screen):
             while not bet_placed:
                 self.screen.blit(self.BackgroudGetter(), (0, 0))
 
-                if leave_button.draw():
+                if leave_button.draw(self.screen):
                     pygame.quit()
                     sys.exit()
 
@@ -135,20 +139,26 @@ class GameScreen(Screen):
                 bet1_button.set_enabled(current_player.bank >= 1)
                 bet15_button.set_enabled(current_player.bank >= 1.5)
 
-                if bet05_button.draw():
+                if bet05_button.draw(self.screen):
                     current_player.bet = 0.5
                     current_player.ready = True
                     bet_placed = True
+                    self.client.sender("PLACE_BET" + " " + str(0.5))
+                    self.client.user.placing_bets = False
 
-                if bet1_button.draw():
+                if bet1_button.draw(self.screen):
                     current_player.bet = 1
                     current_player.ready = True
                     bet_placed = True
+                    self.client.sender("PLACE_BET" + " " + str(1))
+                    self.client.user.placing_bets = False
 
-                if bet15_button.draw():
+                if bet15_button.draw(self.screen):
                     current_player.bet = 1.5
                     current_player.ready = True
                     bet_placed = True
+                    self.client.sender("PLACE_BET" + " " + str(1.5))
+                    self.client.user.placing_bets = False
 
                 for event in pygame.event.get():
                     if event.type == QUIT:
@@ -164,13 +174,13 @@ class GameScreen(Screen):
 
     def draw_all_hands(self):
         # Drawing players hands
-        for i, p in enumerate(self.players):
+        for i, p in enumerate(self.table.users_name):
             x_offset = 0
             for card in p.hand:
                 self.screen.blit(card.image, (p.x + x_offset, p.y))
                 x_offset += 30
             # Adding text with number of points in cards
-            if p.EndOfTurn == False:
+            if not p.EndOfTurn:
                 if p.low_count != p.high_count:
                     text = f"{p.low_count}/{p.high_count} pkt"
                 else:
@@ -179,37 +189,45 @@ class GameScreen(Screen):
             else:
                 self.add_text(str(p.result), text_Small, self.screen, p.x + 40, p.y - 10, white)
 
-            self.add_text(p.name, text_Normal, self.screen, p.x + 40, p.y + card_height + 10, orange)
+            self.add_text(p.user_name, text_Normal, self.screen, p.x + 40, p.y + card_height + 10, orange)
 
         # Draw dealers hand
         x_offset = 0
-        for idx, card in enumerate(self.dealer.hand):
-            if idx == 1 and self.dealer.hide_second_card:
-                self.screen.blit(card_back_img, (self.dealer.x + x_offset, self.dealer.y))
+        for idx, card in enumerate(self.table.dealer.hand):
+            if idx == 1 and self.table.dealer.hide_second_card:
+                self.screen.blit(card_back_img, (self.table.dealer.x + x_offset, self.table.dealer.y))
             else:
-                self.screen.blit(card.image, (self.dealer.x + x_offset, self.dealer.y))
+                self.screen.blit(card.image, (self.table.dealer.x + x_offset, self.table.dealer.y))
             x_offset += 30
 
         # Show known dealers points
-        if self.dealer.hide_second_card:
-            visible_value = self.dealer.hand[0].value
-            if self.dealer.hand[0].label == "A":
-                visible_value = "1/11"
-            self.add_text(f"{visible_value} pkt", text_Small, self.screen, self.dealer.x + 40, self.dealer.y - 10, red)
+        if self.table.dealer.hide_second_card:
+            if self.table.dealer.get_first_card:
+                visible_value = self.table.dealer.hand[0].value
+                if self.table.dealer.hand[0].label == "A":
+                    visible_value = "1/11"
+                self.add_text(f"{visible_value} pkt", text_Small, self.screen, self.table.dealer.x + 40,
+                              self.table.dealer.y - 10, red)
         else:
-            if self.dealer.low_count != self.dealer.high_count:
-                text = f"{self.dealer.low_count}/{self.dealer.high_count} pkt"
+            if self.table.dealer.low_count != self.table.dealer.high_count:
+                text = f"{self.table.dealer.low_count}/{self.table.dealer.high_count} pkt"
             else:
-                text = f"{self.dealer.low_count} pkt"
-            self.add_text(text, text_Small, self.screen, self.dealer.x + 40, self.dealer.y - 10, red)
+                text = f"{self.table.dealer.low_count} pkt"
+            self.add_text(text, text_Small, self.screen, self.table.dealer.x + 40, self.table.dealer.y - 10, red)
 
     def redraw_game_screen(self):
         self.screen.blit(self.BackgroudGetter(), (0, 0))
         self.draw_all_hands()
-        hit_button.draw()
-        stand_button.draw()
-        double_button.draw()
-        if leave_button.draw():
+        if self.client.user.hit_stand_double:
+            if hit_button.draw(self.screen):
+                self.client.sender("HIT")
+            if stand_button.draw(self.screen):
+                self.client.sender("STAND")
+                self.client.user.hit_stand_double = False
+            if double_button.draw(self.screen):
+                self.client.sender("DOUBLE")
+                self.client.user.hit_stand_double = False
+        if leave_button.draw(self.screen):
             pygame.quit()
             sys.exit()
         pygame.display.update()

@@ -1,5 +1,7 @@
 import string
+
 from Player import Player
+
 
 class User:
     def __init__(self, name: string, album_number: string, email: string, password: string, points: int,
@@ -14,15 +16,17 @@ class User:
         self.loses = loses
         self.is_admin = is_admin
         self.is_logged = False
-        self.player = Player()
+        self.player = Player(self.points)
         self.sender = None
+        self.receiver = None
         self.hit_stand_double = False
         self.hit = False
-        self.hit_stand_double = False
+        self.stand = False
         self.double = False
 
-    def add_sender(self, sender):
+    def add_sender_and_receiver(self, sender, receiver):
         self.sender = sender
+        self.receiver = receiver
 
     def __str__(self):
         print("Name: ", self.name)
@@ -39,4 +43,3 @@ class User:
         return ("user_info" + " " + self.name + " " + self.album_number + " " + self.email + " " + self.password + " " +
                 self.points.__str__() + " " + self.help_points.__str__() + " " + self.wins.__str__() + " " +
                 self.loses.__str__() + " " + self.is_admin.__str__())
-

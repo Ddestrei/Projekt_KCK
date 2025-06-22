@@ -36,6 +36,7 @@ class Client:
         self.tableManager = None
         self.receiver_thread = threading.Thread(target=self.receiver)
         self.receiver_thread.start()
+        self.table = None
 
     def receiver(self):
         while self.is_connected:
@@ -60,9 +61,35 @@ class Client:
         elif mess_parts[0] == "cannot_log_in":
             self.is_logged = False
             self.received_logging_answer = True
-        self.sender("received")
+        elif mess_parts[0] == "YOU_CREAT_YOU_JOIN":
+            mess_parts.append(self.user.name)
+            mess_parts.append(self.user.album_number)
+            self.tableManager.add_players_names_to_table(mess_parts)
+            self.table = self.tableManager.find_table_by_id(int(mess_parts[1]))
+        elif mess_parts[0] == "DEALER_GET_FIRST_CARD":
+            self.table.dealer.add_card(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4])
+            self.table.dealer.get_first_card = True
+        elif mess_parts[0] == "USER_GET_FIRST_CARD":
+            player = self.table.find_player_by_album_number(mess_parts[1])
+            player.add_card(mess_parts[2], mess_parts[3], mess_parts[4], mess_parts[5])
+        elif mess_parts[0] == "DEALER_GET_SECOND_CARD":
+            self.table.dealer.add_card(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4])
+            self.table.dealer.get_second_card = True
+        elif mess_parts[0] == "USER_GET_SECOND_CARD":
+            player = self.table.find_player_by_album_number(mess_parts[1])
+            player.add_card(mess_parts[2], mess_parts[3], mess_parts[4], mess_parts[5])
+            self.user.hit_stand_double = True
+        elif mess_parts[0] == "PLACE_BET":
+            self.user.placing_bets = True
+        elif mess_parts[0] == "USER_USE_HIT_GET_NEXT_CARD":
+            player = self.table.find_player_by_album_number(mess_parts[1])
+            player.add_card(mess_parts[2], mess_parts[3], mess_parts[4], mess_parts[5])
+        elif mess_parts[0] == "USER_USE_DOUBLE":
+            player = self.table.find_player_by_album_number(mess_parts[1])
+            player.bet *= 2
 
     def sender(self, message: string):
+        print("Client send " + message)
         self.conn.send(message.encode())
 
     def login_to_server(self, nr_album: string, password: string):

@@ -10,6 +10,8 @@ class User:
         self.loses = loses
         self.is_admin = is_admin
         self.is_logged = False
+        self.placing_bets = False
+        self.hit_stand_double = False
 
     def __str__(self):
         print("Name: ", self.name)

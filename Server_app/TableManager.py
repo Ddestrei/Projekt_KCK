@@ -1,4 +1,6 @@
 # from Server import Server
+from time import sleep
+
 from Table import Table
 from User import User
 
@@ -16,6 +18,9 @@ class TableManager:
         self.tables.append(table)
         self.counter += 1
         self.add_table_info(table)
+        sleep(1)
+        user.sender("YOU_CREAT_YOU_JOIN" + " " + str(table.table_id))
+        table.game()
 
     # Dodaje użytkowniak do stołu jeżeli stół o takim_id nie istnieje zwrazany jest False
     def add_player_to_table(self, table_id: int, user: User):
@@ -25,9 +30,6 @@ class TableManager:
         table.users.append(user)
         self.add_user_to_table(table)
         return True
-
-    def start_table(self, table_id: int):
-        pass
 
     def send_tables(self):
         mess = "send_table"

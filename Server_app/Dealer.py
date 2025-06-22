@@ -18,10 +18,10 @@ class Dealer:
         return self.deck.getCard()
 
     def add_card(self):
-        dealerCard = self.dealCard()
+        dealerCard = self.deal_card()
         self.hand.append(dealerCard)
         self.count += dealerCard.value
-        self.countAce()
+        self.count_ace()
 
     def count_ace(self):
         self.low_count = sum(card.value for card in self.hand)

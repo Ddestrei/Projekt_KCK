@@ -1,8 +1,9 @@
-from Tool import percents, choice
 from Deck import Deck
-class Dealer():
-    def __init__(self, screen):
-        self.screen = screen
+from Tool import percents, choice
+from Card import Card
+
+class Dealer:
+    def __init__(self):
         self.deck = Deck()
         self.deck.createDeck()
         self.deck.shuffleDeck()
@@ -13,16 +14,15 @@ class Dealer():
         self.x = round(672 * percents[choice])
         self.y = round(450 * percents[choice])
         self.hide_second_card = True
+        self.get_first_card = False
+        self.get_second_card = False
 
     def createDealerHand(self):
         for i in range(1, 3):
             self.addCard()
 
-    def dealCard(self):
-        return self.deck.getCard()
-
-    def addCard(self):
-        dealerCard = self.dealCard()
+    def add_card(self, suit: str, color: str, label: str, value: str):
+        dealerCard = self.deck.find_card(suit, color, label, value)
         self.hand.append(dealerCard)
         self.count += dealerCard.value
         self.countAce()

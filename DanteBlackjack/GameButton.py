@@ -1,19 +1,20 @@
 import pygame
 
 class GameButton:
-    def __init__(self, x, y, image, window, scale=1, hover_image=None, enabled=True):
+    def __init__(self, x, y, image, scale=1, hover_image=None, enabled=True):
         width = image.get_width()
         height = image.get_height()
         self.base_image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
         self.hover_image = pygame.transform.scale(hover_image, (
-        int(width * scale), int(height * scale))) if hover_image else self.base_image
+            int(width * scale), int(height * scale))) if hover_image else self.base_image
         self.image = self.base_image
         self.rect = self.image.get_rect(topleft=(x, y))
         self.clicked = False
         self.enabled = enabled
-        self.screen = window
+        self.screen = None
 
-    def draw(self):
+    def draw(self, screen):
+        self.screen = screen
         action = False
         mouse_pos = pygame.mouse.get_pos()
 

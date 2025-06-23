@@ -11,8 +11,8 @@ class Table:
         self.amount_users = amount_users
         self.dealer = Dealer()
 
-    def add_user_name(self, name, album_number):
-        self.users_name.append(Player(name, album_number))
+    def add_user_name(self, name, album_number, points):
+        self.users_name.append(Player(name, album_number, points))
         self.amount_users += 1
 
     def find_player_by_album_number(self, album_number):

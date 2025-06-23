@@ -57,14 +57,14 @@ class Client:
         elif mess_parts[0] == "user_join_table":
             self.tableManager.increase_number_of_player(int(mess_parts[1]))
         elif mess_parts[0] == "players_in_table":
-            self.tableManager.add_players_names_to_table(mess_parts)
+            self.tableManager.add_players_names_to_table(mess_parts, self.user.points)
         elif mess_parts[0] == "cannot_log_in":
             self.is_logged = False
             self.received_logging_answer = True
         elif mess_parts[0] == "YOU_CREAT_YOU_JOIN":
             mess_parts.append(self.user.name)
             mess_parts.append(self.user.album_number)
-            self.tableManager.add_players_names_to_table(mess_parts)
+            self.tableManager.add_players_names_to_table(mess_parts, self.user.points)
             self.table = self.tableManager.find_table_by_id(int(mess_parts[1]))
         elif mess_parts[0] == "DEALER_GET_FIRST_CARD":
             self.table.dealer.add_card(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4])
@@ -84,9 +84,18 @@ class Client:
         elif mess_parts[0] == "USER_USE_HIT_GET_NEXT_CARD":
             player = self.table.find_player_by_album_number(mess_parts[1])
             player.add_card(mess_parts[2], mess_parts[3], mess_parts[4], mess_parts[5])
+            self.user.hit_stand_double = True
         elif mess_parts[0] == "USER_USE_DOUBLE":
             player = self.table.find_player_by_album_number(mess_parts[1])
             player.bet *= 2
+        elif mess_parts[0] == "DEALER_SHOW_SECOND_CARD":
+            self.table.dealer.hide_second_card = False
+        elif mess_parts[0] == "WIN":
+            self.user.points += float(mess_parts[1])
+        elif mess_parts[0] == "LOSE":
+            self.user.points -= float(mess_parts[1])
+        elif mess_parts[0] == "DEALER_GET_ANOTHER_CARD":
+            self.table.dealer.add_card(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4])
 
     def sender(self, message: string):
         print("Client send " + message)

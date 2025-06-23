@@ -36,6 +36,9 @@ class GameScreen(Screen):
         self.screen.blit(self.background, (0, 0))
         self.fixCoordinates()
         if self.client.user.placing_bets:
+            for p in self.table.users_name:
+                p.reset_hand()
+                self.table.dealer.reset_hand()
             self.placing_bets()
         self.redraw_game_screen()
         pygame.display.update()
@@ -133,7 +136,7 @@ class GameScreen(Screen):
 
                 self.add_text("Player's " + str(i + 1) + " turn, place your bet", text_Bold, self.screen, halfWidth,
                               100, red)
-                self.add_text("Your points: " + str(current_player.bank), text_Normal, self.screen,
+                self.add_text("Your points: " + str(self.client.user.points), text_Normal, self.screen,
                               round(150 * percents[choice]), round(100 * percents[choice]), orange)
                 bet05_button.set_enabled(current_player.bank >= 0.5)
                 bet1_button.set_enabled(current_player.bank >= 1)
@@ -170,7 +173,7 @@ class GameScreen(Screen):
             i += 1
 
     def newDeck(self):
-        self.dealer = Dealer(self.screen)
+        self.dealer = Dealer()
 
     def draw_all_hands(self):
         # Drawing players hands
@@ -221,6 +224,7 @@ class GameScreen(Screen):
         if self.client.user.hit_stand_double:
             if hit_button.draw(self.screen):
                 self.client.sender("HIT")
+                self.client.user.hit_stand_double = False
             if stand_button.draw(self.screen):
                 self.client.sender("STAND")
                 self.client.user.hit_stand_double = False
@@ -370,7 +374,7 @@ class GameScreen(Screen):
             self.add_text("End of this turn", text_Bold, self.screen, halfWidth, 40, red)
             self.draw_all_hands()
 
-            for i, p in enumerate(self.players):
+            for i, p in enumerate(self.table.players):
                 if p.EndOfTurn == False:
                     if p.bust:
                         p.result = "Bust!"

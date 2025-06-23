@@ -1,7 +1,7 @@
 from Deck import Deck
 
 class Player:
-    def __init__(self, user_name: str, album_number: str):
+    def __init__(self, user_name: str, album_number: str, points: int):
         self.user_name = user_name
         self.album_number = album_number
         self.hand = []
@@ -10,7 +10,7 @@ class Player:
         self.deck = Deck()
         self.deck.createDeck()
         self.count = 0
-        self.bank = 2
+        self.bank = points
         self.bet = 0
         self.roundsWon = 0
         self.x = 0
@@ -35,7 +35,7 @@ class Player:
                 self.high_count = self.low_count
         self.count = self.high_count if self.high_count <= 21 else self.low_count
 
-    def ResetHand(self):
+    def reset_hand(self):
         self.hand = []
         self.low_count = 0
         self.high_count = 0

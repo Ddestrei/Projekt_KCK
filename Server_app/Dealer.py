@@ -34,3 +34,12 @@ class Dealer:
                 self.high_count = self.low_count
 
         self.count = self.high_count if self.high_count <= 21 else self.low_count
+
+    def reset_hand(self):
+        self.hand = []
+        self.count = 0
+        self.high_count = 0
+        self.low_count = 0
+        self.deck = Deck()
+        self.deck.createDeck()
+        self.deck.shuffleDeck()

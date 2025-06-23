@@ -29,7 +29,7 @@ class TableManager:
         print("not found")
         return None
 
-    def add_players_names_to_table(self, mess_parts: list[str]):
+    def add_players_names_to_table(self, mess_parts: list[str], points: int):
         table = self.find_table_by_id(int(mess_parts[1]))
         for i in range(2, len(mess_parts), 2):
-            table.add_user_name(mess_parts[i], mess_parts[i+1])
+            table.add_user_name(mess_parts[i], mess_parts[i+1], points)

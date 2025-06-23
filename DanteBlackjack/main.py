@@ -5,6 +5,7 @@ from DanteBlackjackStartScreen import *
 from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
+from DanteScreen import *
 from GameScreen import GameScreen
 # ustawienie klienta
 from Client import Client
@@ -21,6 +22,7 @@ dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
 lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
 GameScreen = GameScreen(client)
+dante_screen = DanteScreen()
 current_screen = login_dante_screen
 button_stop = False
 
@@ -54,6 +56,11 @@ while running:
             # ekran startowy dante
             if dante_start_screen_to_dante_blackjack_start_screen.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_blackjack_start_screen
+            if topics_button.tool_click_left() and current_screen == dante_start_screen:
+                current_screen = dante_screen
+            # ekran dante
+            if house_button.tool_click_left() and current_screen == dante_screen:
+                current_screen = dante_start_screen
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen

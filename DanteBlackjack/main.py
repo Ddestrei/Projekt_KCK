@@ -6,7 +6,10 @@ from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
 from DanteScreen import *
+from DanteTaskScreen import *
+from DanteWorkScreen import *
 from GameScreen import GameScreen
+import Task
 # ustawienie klienta
 from Client import Client
 from TableManager import TableManager
@@ -21,8 +24,10 @@ dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
 lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
-GameScreen = GameScreen(client)
+game_screen = GameScreen(client)
 dante_screen = DanteScreen()
+dante_task_screen = DanteTaskScreen()
+dante_work_screen = DanteWorkScreen()
 current_screen = login_dante_screen
 button_stop = False
 
@@ -30,7 +35,7 @@ button_stop = False
 
 
 
-
+running = True
 
 while running:
     current_screen.Start(window, choice)
@@ -58,8 +63,33 @@ while running:
                 current_screen = dante_blackjack_start_screen
             if topics_button.tool_click_left() and current_screen == dante_start_screen:
                 current_screen = dante_screen
+                button_stop = True
             # ekran dante
             if house_button.tool_click_left() and current_screen == dante_screen:
+                current_screen = dante_start_screen
+            if task_list_button.tool_click_left() and current_screen == dante_screen:
+                current_screen = dante_task_screen
+                button_stop = True
+            # ekran zadan dante
+            if house_button.tool_click_left() and current_screen == dante_task_screen:
+                current_screen = dante_start_screen
+            if do_1.tool_click_left() and current_screen == dante_task_screen:
+                Task.task_number = 1
+                current_screen = dante_work_screen
+            if do_2.tool_click_left() and current_screen == dante_task_screen:
+                Task.task_number = 2
+                current_screen = dante_work_screen
+            if do_3.tool_click_left() and current_screen == dante_task_screen:
+                Task.task_number = 3
+                current_screen = dante_work_screen
+            if do_4.tool_click_left() and current_screen == dante_task_screen:
+                Task.task_number = 4
+                current_screen = dante_work_screen
+            if do_5.tool_click_left() and current_screen == dante_task_screen:
+                Task.task_number = 5
+                current_screen = dante_work_screen
+            # ekran do zadan
+            if house_button.tool_click_left() and current_screen == dante_work_screen:
                 current_screen = dante_start_screen
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
@@ -86,10 +116,10 @@ while running:
                     if get_min_bet.tool_click_left():
                         client.create_table(1)
                         sleep(2)
-                        GameScreen.set_table(client.table)
-                        current_screen = GameScreen
+                        game_screen.set_table(client.table)
+                        current_screen = game_screen
                         print("33")
-                if current_screen != GameScreen:
+                if current_screen != game_screen:
                     for i in range(len(current_screen.table_button_array)):
                         if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
                             print(i)

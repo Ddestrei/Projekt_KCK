@@ -23,7 +23,7 @@ class Tool():
             self.tool_image = pygame.transform.scale(self.tool_image, (
             int(percents[choice] * self.tool_image.get_width()), int(percents[choice] * self.tool_image.get_height())))
         self.hitbox = pygame.Rect(self.x, self.y, self.tool_image.get_width(), self.tool_image.get_height())
-
+        self.visible = True
     def click_left(self):
         return pygame.mouse.get_pressed()[0]
 
@@ -42,7 +42,8 @@ class Tool():
     def tool_draw(self, window):
         # if self.cursor_in_hitbox():
         # self.tool_image.fill((255, 0, 0)) #tymczasowe
-        window.blit(self.tool_image, (self.x, self.y))
+        if self.visible == True:
+            window.blit(self.tool_image, (self.x, self.y))
 
 
 def scale_position(x, y, choice):

@@ -30,6 +30,37 @@ y_button = 94
 x_button, y_button = scale_position(x_button, y_button, choice)
 house_button = Button(x_button, y_button, "house.png")
 
+x_button = 1140
+y_button = 289
+x_button, y_button = scale_position(x_button, y_button, choice)
+task_list_button = Button(x_button, y_button, "lista.png")
+
+
+x_button = 1156
+y_button = 241
+x_button, y_button = scale_position(x_button, y_button, choice)
+do_1 = Button(x_button, y_button, "wykonaj.png")
+
+x_button = 1156
+y_button = 311
+x_button, y_button = scale_position(x_button, y_button, choice)
+do_2 = Button(x_button, y_button, "wykonaj.png")
+
+x_button = 1156
+y_button = 381
+x_button, y_button = scale_position(x_button, y_button, choice)
+do_3 = Button(x_button, y_button, "wykonaj.png")
+
+x_button = 1156
+y_button = 451
+x_button, y_button = scale_position(x_button, y_button, choice)
+do_4 = Button(x_button, y_button, "wykonaj.png")
+
+x_button = 1156
+y_button = 521
+x_button, y_button = scale_position(x_button, y_button, choice)
+do_5 = Button(x_button, y_button, "wykonaj.png")
+
 
 x_button = 650
 y_button = 350

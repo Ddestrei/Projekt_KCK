@@ -73,21 +73,22 @@ while running:
             # ekran zadan dante
             if house_button.tool_click_left() and current_screen == dante_task_screen:
                 current_screen = dante_start_screen
-            if do_1.tool_click_left() and current_screen == dante_task_screen:
-                Task.task_number = 1
-                current_screen = dante_work_screen
-            if do_2.tool_click_left() and current_screen == dante_task_screen:
-                Task.task_number = 2
-                current_screen = dante_work_screen
-            if do_3.tool_click_left() and current_screen == dante_task_screen:
-                Task.task_number = 3
-                current_screen = dante_work_screen
-            if do_4.tool_click_left() and current_screen == dante_task_screen:
-                Task.task_number = 4
-                current_screen = dante_work_screen
-            if do_5.tool_click_left() and current_screen == dante_task_screen:
-                Task.task_number = 5
-                current_screen = dante_work_screen
+            if button_stop == False:
+                if do_1.tool_click_left() and current_screen == dante_task_screen:
+                    Task.task_number = 1
+                    current_screen = dante_work_screen
+                if do_2.tool_click_left() and current_screen == dante_task_screen:
+                    Task.task_number = 2
+                    current_screen = dante_work_screen
+                if do_3.tool_click_left() and current_screen == dante_task_screen:
+                    Task.task_number = 3
+                    current_screen = dante_work_screen
+                if do_4.tool_click_left() and current_screen == dante_task_screen:
+                    Task.task_number = 4
+                    current_screen = dante_work_screen
+                if do_5.tool_click_left() and current_screen == dante_task_screen:
+                    Task.task_number = 5
+                    current_screen = dante_work_screen
             # ekran do zadan
             if house_button.tool_click_left() and current_screen == dante_work_screen:
                 current_screen = dante_start_screen

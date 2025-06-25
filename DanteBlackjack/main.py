@@ -1,5 +1,6 @@
 from time import sleep
 
+
 from DanteStartScreen import *
 from DanteBlackjackStartScreen import *
 from LobbyScreen import *
@@ -32,8 +33,7 @@ current_screen = login_dante_screen
 button_stop = False
 
 #Creating basic text for blackjack
-
-
+music = pygame.mixer.Sound("muzyka/music.mp3")
 
 running = True
 
@@ -98,7 +98,6 @@ while running:
             if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 button_stop = True
                 current_screen = lobby_screen
-
             # ekran zasad
             if RulesButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = rules_screen
@@ -128,7 +127,10 @@ while running:
                 current_screen = dante_blackjack_start_screen
             #if current_screen == GameScreen:
             #    GameScreen.Start(window, choice)
-
+        if current_screen == dante_blackjack_start_screen:
+            music.play(-1)
+        if current_screen == dante_start_screen:
+            music.stop()
         # ekran logowania
         if current_screen == login_dante_screen:
             username.writing(event)

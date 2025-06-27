@@ -109,16 +109,10 @@ while running:
             if current_screen == lobby_screen:
                 current_screen.Start(window, choice)
                 if current_screen.lobby_add_table is not None and current_screen.lobby_add_table.tool_click_left():
-                    poz_x, poz_y = scale_position(current_screen.tables_positions[current_screen.number_of_tables][0],
-                                                  current_screen.tables_positions[current_screen.number_of_tables][
-                                                      1] + 200, choice)
-                    get_min_bet = Button(poz_x, poz_y, "hit.png")
-                    if get_min_bet.tool_click_left():
                         client.create_table(1)
                         sleep(2)
                         game_screen.set_table(client.table)
                         current_screen = game_screen
-                        print("33")
                 if current_screen != game_screen:
                     for i in range(len(current_screen.table_button_array)):
                         if current_screen.table_button_array[i].tool_click_left() and button_stop == False:

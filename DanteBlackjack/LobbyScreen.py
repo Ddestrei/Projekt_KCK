@@ -44,7 +44,7 @@ class LobbyScreen(Screen):
         self.lobby_add_table = None
 
         pygame.time.Clock().tick(60)
-        background = pygame.image.load('Grafika/Tla/background_lobby.png')
+        background = pygame.image.load(Lobby_background_path)
         background = pygame.transform.scale(background, (resolutions[self.choice]))
         self.window.blit(background, (0, 0))
 
@@ -54,7 +54,7 @@ class LobbyScreen(Screen):
         lobby_blackspace_box = Tool(x, y, "lobby_blackspace.png")
         lobby_blackspace_box.tool_draw(window)
 
-        text_lobby_blackspace = pygame.font.Font("Grafika/Czcionki/Aptos.ttf",
+        text_lobby_blackspace = pygame.font.Font(text_lobby_blackspace_path,
                                                  scale_font(36, choice)).render(
             "Choose table to play", True,
             (242, 120, 27))  # Renderowanie tekstu
@@ -81,7 +81,7 @@ class LobbyScreen(Screen):
         table_button = Button(button_x, button_y, "lobby_table.png")
         table_button.tool_draw(self.window)
 
-        text_lobby_blackspace = pygame.font.Font("Grafika/Czcionki/Aptos.ttf",
+        text_lobby_blackspace = pygame.font.Font(text_lobby_blackspace_path,
                                                  scale_font(36, self.choice)).render(
             f"{bet}", True, (179, 38, 30))
         button_x, button_y = scale_position(table_x + 164, table_y + 8, self.choice)
@@ -91,19 +91,19 @@ class LobbyScreen(Screen):
         match number_of_players:
             case 1:
                 x, y = scale_position(table_x + 91, table_y + 263, self.choice)
-                lobby_players1 = Tool(x, y, "lobby_players1.png")
+                lobby_players1 = Tool(x, y, lobby_players1_path)
                 lobby_players1.tool_draw(self.window)
             case 2:
                 x, y = scale_position(table_x + 91, table_y + 263, self.choice)
-                lobby_players2 = Tool(x, y, "lobby_players2.png")
+                lobby_players2 = Tool(x, y, lobby_players2_path)
                 lobby_players2.tool_draw(self.window)
             case 3:
                 x, y = scale_position(table_x + 91, table_y + 263, self.choice)
-                lobby_players3 = Tool(x, y, "lobby_players3.png")
+                lobby_players3 = Tool(x, y, lobby_players3_path)
                 lobby_players3.tool_draw(self.window)
             case 4:
                 x, y = scale_position(table_x + 91, table_y + 263, self.choice)
-                lobby_players4 = Tool(x, y, "lobby_players4.png")
+                lobby_players4 = Tool(x, y, lobby_players4_path)
                 lobby_players4.tool_draw(self.window)
 
         return table_button

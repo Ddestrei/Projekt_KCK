@@ -1,6 +1,7 @@
 import pygame
 
 pygame.init()
+from path import *
 
 resolutions = [(874, 620), (1166, 826), (1457, 1033)]
 percents = [0.6, 0.8, 1]
@@ -18,7 +19,8 @@ class Tool():
     def __init__(self, x, y, image_name):
         self.x = x
         self.y = y
-        self.tool_image = pygame.image.load(f"Grafika/Obiekty/{image_name}")
+        image_path = root_path / "Grafika" / "Obiekty" / image_name
+        self.tool_image = pygame.image.load(image_path)
         if choice != 2:
             self.tool_image = pygame.transform.scale(self.tool_image, (
             int(percents[choice] * self.tool_image.get_width()), int(percents[choice] * self.tool_image.get_height())))

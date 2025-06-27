@@ -9,7 +9,7 @@ class LoginDanteScreen(Screen):
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
-        background = pygame.image.load('Grafika/Tla/Ekran_Logowania.png')
+        background = pygame.image.load(login_background_path)
         background = pygame.transform.scale(background, (resolutions[choice]))
         window.blit(background, (0, 0))
         button_log.tool_draw(window)

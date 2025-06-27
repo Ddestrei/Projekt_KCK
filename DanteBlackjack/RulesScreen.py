@@ -8,7 +8,7 @@ class RulesScreen(Screen):
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
-        background = pygame.image.load('Grafika/Tla/Rules_background.png')
+        background = pygame.image.load(Rules_background_path)
         background = pygame.transform.scale(background, (resolutions[choice]))
         window.blit(background, (0, 0))
 

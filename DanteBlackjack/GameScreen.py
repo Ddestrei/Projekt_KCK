@@ -31,7 +31,7 @@ class GameScreen(Screen):
         self.screen = window
         self.choice = choice
         pygame.time.Clock().tick(60)
-        self.background = pygame.image.load("grafika/tla/table.png")
+        self.background = pygame.image.load(Game_background_path)
         self.background = pygame.transform.scale(self.background, (resolutions[self.choice]))
         self.screen.blit(self.background, (0, 0))
         self.fixCoordinates()

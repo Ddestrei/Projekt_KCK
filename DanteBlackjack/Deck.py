@@ -1,5 +1,5 @@
 import random
-
+from path import *
 import pygame
 
 from Card import Card
@@ -44,13 +44,17 @@ class Deck:
                 card_type = random.randint(1, 4)
                 image = None
                 if card_type == 1:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_Dante/{image_name}")
+                    image_path = root_path / "Grafika" / "Karty" / "Znak_Dante" / image_name
+                    image = pygame.image.load(image_path)
                 if card_type == 2:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_Mech/{image_name}")
+                    image_path = root_path / "Grafika" / "Karty" / "Znak_Mech" / image_name
+                    image = pygame.image.load(image_path)
                 if card_type == 3:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_PL/{image_name}")
+                    image_path = root_path / "Grafika" / "Karty" / "Znak_PL" / image_name
+                    image = pygame.image.load(image_path)
                 if card_type == 4:
-                    image = pygame.image.load(f"Grafika/Karty/Znak_WEEIA/{image_name}")
+                    image_path = root_path / "Grafika" / "Karty" / "Znak_WEEIA" / image_name
+                    image = pygame.image.load(image_path)
                 card = Card(full_suit_name, color, label, value)
                 card.image = pygame.transform.scale(image, (
                     round(96 * percents[choice]), round(144 * percents[choice])))  # Resize if needed

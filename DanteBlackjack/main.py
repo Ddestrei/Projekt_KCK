@@ -33,7 +33,7 @@ current_screen = login_dante_screen
 button_stop = False
 
 #Creating basic text for blackjack
-music = pygame.mixer.Sound("muzyka/music.mp3")
+music = pygame.mixer.Sound(music_path)
 
 running = True
 

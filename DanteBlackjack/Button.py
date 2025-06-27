@@ -109,12 +109,12 @@ def brighten_surface(surface, brightness=40):
 # buttons for blackjack
 screenWidth, screenHeight = resolutions[choice]
 halfWidth, halfHeight = screenWidth / 2, screenHeight / 2
-bet15_img = pygame.image.load("Grafika/Obiekty/bet1,5p.png")
-bet1_img = pygame.image.load("Grafika/Obiekty/bet1p.png")
-bet05_img = pygame.image.load("Grafika/Obiekty/bet0.5.png")
-hit_img = pygame.image.load("Grafika/Obiekty/hit.png")
-stand_img = pygame.image.load("Grafika/Obiekty/STAND.png")
-double_img = pygame.image.load("Grafika/Obiekty/double.png")
+bet15_img = pygame.image.load(bet15_img_path)
+bet1_img = pygame.image.load(bet1_img_path)
+bet05_img = pygame.image.load(bet05_img_path)
+hit_img = pygame.image.load(hit_img_path)
+stand_img = pygame.image.load(stand_img_path)
+double_img = pygame.image.load(double_img_path)
 bet05_button = GameButton(halfWidth - round(300 * percents[choice]),
                           screenHeight - round(100 * percents[choice]), bet05_img, percents[choice],
                           hover_image=brighten_surface(bet05_img))
@@ -134,9 +134,9 @@ stand_button = GameButton(adjusted_center, screenHeight - 70, stand_img, percent
                           hover_image=brighten_surface(stand_img))
 double_button = GameButton(adjusted_center + button_spacing, screenHeight - 70, double_img, percents[choice],
                            hover_image=brighten_surface(double_img))
-card_back_img = pygame.image.load("Grafika/Karty/tyl_karty.png")
+card_back_img = pygame.image.load(card_back_img_path)
 card_back_img = pygame.transform.scale(card_back_img, (round(96 * percents[choice]), round(144 * percents[choice])))
-leave_img = pygame.image.load("Grafika/Obiekty/leave.png")
+leave_img = pygame.image.load(leave_img_path)
 leave_button = GameButton(10, 10, leave_img, round(percents[choice] * 1.5))
 leave_button.set_enabled(True)
 hit_button.set_enabled(True)

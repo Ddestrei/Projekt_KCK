@@ -2,7 +2,7 @@ from Screen import *
 import Task
 class DanteWorkScreen(Screen):
     def Start(self, window, choice):
-        task_background = pygame.image.load('Grafika/Tla/ekrandozadania.png')
+        task_background = pygame.image.load(task_background_path)
         task_background = pygame.transform.scale(task_background, (resolutions[choice]))
         window.blit(task_background, (0, 0))
         house_button.tool_draw(window)

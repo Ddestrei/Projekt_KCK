@@ -9,6 +9,7 @@ from RulesScreen import *
 from DanteScreen import *
 from DanteTaskScreen import *
 from DanteWorkScreen import *
+from SettingsScreen import *
 from GameScreen import GameScreen
 import Task
 # ustawienie klienta
@@ -29,6 +30,7 @@ game_screen = GameScreen(client)
 dante_screen = DanteScreen()
 dante_task_screen = DanteTaskScreen()
 dante_work_screen = DanteWorkScreen()
+settings_screen = SettingsScreen()
 current_screen = login_dante_screen
 button_stop = False
 
@@ -103,6 +105,13 @@ while running:
                 current_screen = rules_screen
 
             if RulesScreen_back.tool_click_left() and current_screen == rules_screen:
+                current_screen = dante_blackjack_start_screen
+
+            # ekran opcji
+            if SettingsButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
+                current_screen = settings_screen
+
+            if SettingsScreen_back.tool_click_left() and current_screen == settings_screen:
                 current_screen = dante_blackjack_start_screen
 
             # ekran wybor stolu

@@ -40,6 +40,12 @@ y_button = 95
 x_button, y_button = scale_position(x_button, y_button, choice)
 pp1 = Button(x_button, y_button, "pp1.png")
 
+x_button = 518
+y_button = 269
+x_button, y_button = scale_position(x_button, y_button, choice)
+help = Button(x_button, y_button, "pomoc.png")
+
+
 x_button = 1140
 y_button = 289
 x_button, y_button = scale_position(x_button, y_button, choice)
@@ -116,6 +122,12 @@ x_button = 651
 y_button = 955
 x_button, y_button = scale_position(x_button, y_button, choice)
 StatisticsScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
+
+x_button = 240
+y_button = 268
+x_button, y_button = scale_position(x_button, y_button, choice)
+mode_0_button = Button(x_button, y_button, "tresc.png")
+
 
 def brighten_surface(surface, brightness=40):
     hover = surface.copy()

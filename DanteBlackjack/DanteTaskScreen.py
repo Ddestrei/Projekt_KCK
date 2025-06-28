@@ -1,4 +1,5 @@
 from Screen import *
+import Task
 
 class DanteTaskScreen(Screen):
     def Start(self, window, choice):

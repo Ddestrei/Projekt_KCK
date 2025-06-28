@@ -13,6 +13,8 @@ from RulesScreen import *
 from SettingsScreen import *
 from StatisticsScreen import *
 from TableManager import TableManager
+from Task import Task
+from Task import torch_table
 
 client = Client()
 tableManager = TableManager()
@@ -80,18 +82,23 @@ while running:
             if button_stop == False:
                 if do_1.tool_click_left() and current_screen == dante_task_screen:
                     Task.task_number = 1
+                    Task.work_mode = 0
                     current_screen = dante_work_screen
                 if do_2.tool_click_left() and current_screen == dante_task_screen:
                     Task.task_number = 2
+                    Task.work_mode = 0
                     current_screen = dante_work_screen
                 if do_3.tool_click_left() and current_screen == dante_task_screen:
                     Task.task_number = 3
+                    Task.work_mode = 0
                     current_screen = dante_work_screen
                 if do_4.tool_click_left() and current_screen == dante_task_screen:
                     Task.task_number = 4
+                    Task.work_mode = 0
                     current_screen = dante_work_screen
                 if do_5.tool_click_left() and current_screen == dante_task_screen:
                     Task.task_number = 5
+                    Task.work_mode = 0
                     current_screen = dante_work_screen
                 if pp1.tool_click_left() and current_screen == dante_task_screen:
                     current_screen = dante_screen
@@ -102,6 +109,13 @@ while running:
                 current_screen = dante_task_screen
             if pp1.tool_click_left() and current_screen == dante_work_screen:
                 current_screen = dante_screen
+            if help.tool_click_left() and current_screen == dante_work_screen:
+                Task.work_mode = 1
+            if mode_0_button.tool_click_left() and current_screen == dante_work_screen:
+                Task.work_mode = 0
+            if unlock_button.tool_click_left() and current_screen == dante_work_screen and torch_table[Task.task_number-1] == 0:
+                torch_table[Task.task_number-1] = 1
+
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen

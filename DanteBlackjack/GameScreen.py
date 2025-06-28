@@ -118,7 +118,7 @@ class GameScreen(Screen):
                     pygame.quit()
                     sys.exit()
                 pygame.display.update()
-                self.delay_with_events(1000)
+                #self.delay_with_events(1000)
                 self.players.pop(i)
                 self.num_of_players -= 1
                 if self.num_of_players == 0:
@@ -349,7 +349,7 @@ class GameScreen(Screen):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            self.delay_with_events(500)
+            #self.delay_with_events(500)
 
             # drawing cards by dealer when < 17 points
             if self.dealer.count < 17:

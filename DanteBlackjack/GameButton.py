@@ -1,5 +1,7 @@
 import pygame
-
+from path import *
+button_sound = pygame.mixer.Sound(sound1_path)
+button_sound.set_volume(1)
 class GameButton:
     def __init__(self, x, y, image, scale=1, hover_image=None, enabled=True):
         width = image.get_width()
@@ -29,6 +31,7 @@ class GameButton:
             if not self.clicked:
                 self.clicked = True
                 action = True
+                button_sound.play()
                 # Add action
         elif not pygame.mouse.get_pressed()[0]:
             self.clicked = False

@@ -1,9 +1,7 @@
 import string
 from time import sleep
-
 from Dealer import Dealer
 from User import User
-
 
 class Table:
 

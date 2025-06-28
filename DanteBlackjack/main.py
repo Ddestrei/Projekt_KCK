@@ -20,8 +20,8 @@ client.set_table_manager(tableManager=tableManager)
 
 window = pygame.display.set_mode(resolutions[choice])
 
-music = pygame.mixer.Sound(music_path)
-music.set_volume(0.1)
+background_music = pygame.mixer.Sound(background_music_path)
+background_music.set_volume(0.1)
 
 login_dante_screen = LoginDanteScreen(client)
 dante_start_screen = DanteStartScreen()
@@ -33,12 +33,12 @@ game_screen = GameScreen(client)
 dante_screen = DanteScreen()
 dante_task_screen = DanteTaskScreen()
 dante_work_screen = DanteWorkScreen()
-settings_screen = SettingsScreen(music)
+settings_screen = SettingsScreen(background_music)
 statistics_screen = StatisticsScreen()
 button_stop = False
 
 # Creating basic text for blackjack
-
+flaga = 0
 running = True
 
 while running:
@@ -144,9 +144,13 @@ while running:
             # if current_screen == GameScreen:
             #    GameScreen.Start(window, choice)
         if current_screen == dante_blackjack_start_screen:
-            music.play(-1)
+            if flaga == 0:
+                background_music.play(-1)
+                flaga = 1
         if current_screen == dante_start_screen:
-            music.stop()
+            if flaga == 1:
+                background_music.stop()
+                flaga = 0
         # ekran logowania
         if current_screen == login_dante_screen:
             username.writing(event)

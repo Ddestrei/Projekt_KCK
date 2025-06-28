@@ -102,6 +102,11 @@ y_button = 955
 x_button, y_button = scale_position(x_button, y_button, choice)
 SettingsScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
 
+x_button = 651
+y_button = 955
+x_button, y_button = scale_position(x_button, y_button, choice)
+StatisticsScreen_back = Button(x_button, y_button, "RulesScreen_back_button.png")
+
 def brighten_surface(surface, brightness=40):
     hover = surface.copy()
     brighten_layer = pygame.Surface(surface.get_size())

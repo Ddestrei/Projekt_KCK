@@ -54,9 +54,10 @@ class DanteBlackjackStartScreen(Screen):
         RulesButton.tool_draw(window)
         SettingsButton.tool_draw(window)
         ExitGameButton.tool_draw(window)
+        StatisticsButton.tool_draw(window)
 
-        if self.IsAdmin:
-            StatisticsButton.tool_draw(window)
+        # if self.IsAdmin:
+        #     StatisticsButton.tool_draw(window)
 
         pygame.display.update()
 

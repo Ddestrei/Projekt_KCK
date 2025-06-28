@@ -4,20 +4,6 @@ pygame.init()
 from Screen import *
 from Client import Client
 
-# to-do list:
-# -create screen skeleton with [background], [back-button] in top left corner of screen,
-#   [choose table to play] information in the middle of screen, [add_table_button] and [table buttons]
-#
-# -create method that creates [table-button with information about bet]
-#    and below it [number of players in this table]
-#
-# - create method [display] which displays all current tables and [add_table_button]
-#
-# - [table-button] have to send [table-number] to server
-#
-# -create [add_table_button] with [mini-screen]
-#    mini-screen have to have: [minimal bets to choose] and [max number of players](?)
-
 
 class LobbyScreen(Screen):
     def __init__(self, client: Client):
@@ -60,17 +46,9 @@ class LobbyScreen(Screen):
             (242, 120, 27))  # Renderowanie tekstu
         self.window.blit(text_lobby_blackspace, scale_position(574, 50, choice))  # Wyświetlenie tekstu
 
-        # buttonc = self.create_table(self.tables_positions[0][0], self.tables_positions[0][1], 0.5, 3)
-        # buttona = self.create_table(self.tables_positions[1][0], self.tables_positions[1][1], 0.5, 1)
-
         self.table_button_array, self.lobby_add_table = self.display_tables(self.number_of_tables,
-                                                                       self.array_of_number_of_players,
-                                                                       self.array_of_bets)
-
-
-            # slider = Slider((100, 30), (40 * choice, 100 * choice), 1, 0.5, 2)
-            # slider.render(self.window)
-            # slider.set_discrete_value(0.5)
+                                                                            self.array_of_number_of_players,
+                                                                            self.array_of_bets)
 
         # print(slider.get_value())
 

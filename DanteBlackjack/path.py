@@ -33,3 +33,4 @@ task_2_path = root_path / "Grafika" / "Obiekty" / "zad12.png"
 task_3_path = root_path / "Grafika" / "Obiekty" / "zad13.png"
 task_4_path = root_path / "Grafika" / "Obiekty" / "zad14.png"
 task_5_path = root_path / "Grafika" / "Obiekty" / "zad15.png"
+

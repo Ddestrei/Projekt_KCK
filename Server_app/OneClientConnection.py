@@ -44,12 +44,13 @@ class OneClientConnection:
                 self.sender(self.user.send_format())
                 self.sender(self.tableManager.send_tables())
         elif mess_parts[0] == "create_table":
-            min_bet = int(mess_parts[1])
-            self.tableManager.add_table(min_bet, self.user)
+            self.tableManager.add_table(self.user)
             pass
         elif mess_parts[0] == "join_to_table":
             self.tableManager.add_player_to_table(int(mess_parts[1]), self.user)
-            self.sender("players_in_table" + self.tableManager.return_players_names_in_table((int(mess_parts[1]))))
+            self.sender(
+                "players_in_table" + " " + mess_parts[1] + self.tableManager.return_players_names_in_table(
+                    (int(mess_parts[1]))))
         elif mess_parts[0] == "PLACE_BET":
             self.user.player.bet = float(mess_parts[1])
         elif mess_parts[0] == "HIT":
@@ -61,3 +62,6 @@ class OneClientConnection:
         elif mess_parts[0] == "DOUBLE":
             self.user.hit_stand_double = True
             self.user.double = True
+        elif mess_parts[0] == "LEAVE":
+            self
+            pass

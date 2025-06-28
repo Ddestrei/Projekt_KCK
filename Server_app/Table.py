@@ -7,15 +7,14 @@ from User import User
 
 class Table:
 
-    def __init__(self, min_bet: int, table_id: int, user: User):
+    def __init__(self, table_id: int, user: User):
         self.table_id = table_id
         self.users = []
         self.users.append(user)
-        self.min_bet = min_bet
         self.dealer = Dealer()
 
     def send_format(self):
-        return str(self.min_bet) + " " + str(self.table_id)
+        return str(self.table_id)
 
     def game(self):
         while self.users.__len__() != 0:
@@ -51,7 +50,7 @@ class Table:
             while self.dealer.low_count < 17:
                 self.dealer.add_card()
                 self.send_to_all_users(
-                    "DEALER_GET_ANOTHER_CARD" + " " + self.dealer.hand[self.dealer.hand.__len__()-1].send_format())
+                    "DEALER_GET_ANOTHER_CARD" + " " + self.dealer.hand[self.dealer.hand.__len__() - 1].send_format())
                 sleep(5)
 
             for u in self.users:
@@ -59,19 +58,23 @@ class Table:
                 u.player.count_cards()
                 if self.dealer.count > 21 >= u.player.count:
                     u.sender("WIN" + " " + str(u.player.bet * 2))
+                    u.points += u.player.bet * 2
+                elif u.player.count > 21:
+                    u.sender("LOSE" + " " + str(u.player.bet))
+                    u.points -= u.player.bet
                 elif self.dealer.count == u.player.count:
                     u.sender("DROW")
                 elif self.dealer.count <= 21 and 21 >= u.player.count > self.dealer.count:
                     u.sender("WIN" + " " + str(u.player.bet * 2))
-                elif u.player.count > 21:
-                    u.sender("LOSE" + " " + str(u.player.bet))
+                    u.points += u.player.bet * 2
                 elif 21 >= u.player.count and u.player.count < self.dealer.count:
                     u.sender("LOSE" + " " + str(u.player.bet))
+                    u.points -= u.player.bet
+                u.change_points(u.album_number, u.points)
             for u in self.users:
                 u.player.reset_hand()
             self.dealer.reset_hand()
             sleep(5)
-
 
     def send_to_all_users(self, mess: string):
         for u in self.users:

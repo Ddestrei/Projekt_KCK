@@ -99,9 +99,9 @@ class GameScreen(Screen):
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-            if leave_button.draw():
-                pygame.quit()
-                sys.exit()
+                if leave_button.draw():
+                    pygame.quit()
+                    sys.exit()
 
     def placing_bets(self):
         i = 0
@@ -109,7 +109,7 @@ class GameScreen(Screen):
         while i < len(self.table.users_name):
             current_player = self.table.users_name[i]
 
-            if current_player.bank < self.table.min_bet:
+            if current_player.bank < 0.5:
                 self.screen.blit(self.BackgroudGetter(), (0, 0))
                 self.add_text("Player " + str(i + 1 + number_of_deleted_players) + " hasn't enough points to play",
                               text_Bold, self.screen, halfWidth, 100, red)
@@ -129,11 +129,9 @@ class GameScreen(Screen):
             bet_placed = False
             while not bet_placed:
                 self.screen.blit(self.BackgroudGetter(), (0, 0))
-
                 if leave_button.draw(self.screen):
                     pygame.quit()
                     sys.exit()
-
                 self.add_text("Player's " + str(i + 1) + " turn, place your bet", text_Bold, self.screen, halfWidth,
                               100, red)
                 self.add_text("Your points: " + str(self.client.user.points), text_Normal, self.screen,
@@ -165,8 +163,7 @@ class GameScreen(Screen):
 
                 for event in pygame.event.get():
                     if event.type == QUIT:
-                        pygame.quit()
-                        sys.exit()
+                        self.client.sender("LEAVE")
 
                 pygame.display.update()
 
@@ -304,11 +301,9 @@ class GameScreen(Screen):
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
-
-                if leave_button.draw():
-                    pygame.quit()
-                    sys.exit()
-
+                    if leave_button.draw():
+                        pygame.quit()
+                        sys.exit()
                 if player.count == 21 or player.high_count == 21:
                     turn_active = False
 
@@ -345,11 +340,9 @@ class GameScreen(Screen):
             self.screen.blit(self.BackgroudGetter(), (0, 0))
             self.draw_all_hands()
             self.add_text("Revealing cards...", text_Bold, self.screen, halfWidth, 40, red)
-
             if leave_button.draw():
                 pygame.quit()
                 sys.exit()
-
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -397,7 +390,6 @@ class GameScreen(Screen):
             if leave_button.draw():
                 pygame.quit()
                 sys.exit()
-
             pygame.display.update()
 
             for event in pygame.event.get():

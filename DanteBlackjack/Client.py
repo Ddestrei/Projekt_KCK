@@ -58,6 +58,7 @@ class Client:
             self.tableManager.increase_number_of_player(int(mess_parts[1]))
         elif mess_parts[0] == "players_in_table":
             self.tableManager.add_players_names_to_table(mess_parts, self.user.points)
+            self.table = self.tableManager.find_table_by_id(int(mess_parts[1]))
         elif mess_parts[0] == "cannot_log_in":
             self.is_logged = False
             self.received_logging_answer = True
@@ -105,14 +106,14 @@ class Client:
         self.sender("login_to_game" + " " + nr_album + " " + password)
 
     def add_user(self, mess_parts: list[str]):
-        self.user = User(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4], int(mess_parts[5]),
+        self.user = User(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4], float(mess_parts[5]),
                          int(mess_parts[6]), int(mess_parts[7]), int(mess_parts[8]), int(mess_parts[9]))
         self.user.__str__()
         self.is_logged = True
         self.received_logging_answer = True
 
-    def create_table(self, min_bet: int):
-        self.sender("create_table" + " " + str(min_bet))
+    def create_table(self):
+        self.sender("create_table")
 
     def set_table_manager(self, tableManager: TableManager):
         self.tableManager = tableManager

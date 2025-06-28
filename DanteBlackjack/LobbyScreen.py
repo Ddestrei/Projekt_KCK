@@ -21,6 +21,7 @@ class LobbyScreen(Screen):
         self.number_of_tables = 0
         self.array_of_number_of_players = []
         self.array_of_bets = []
+        self.tables = None
 
     def Start(self, window, choice):
         self.initialise()
@@ -128,7 +129,8 @@ class LobbyScreen(Screen):
         return table_button_array, lobby_add_table
 
     def initialise(self):
+        self.tables = self.client.tableManager.tables
         self.number_of_tables = self.client.tableManager.tables.__len__()
         for table in self.client.tableManager.tables:
             self.array_of_number_of_players.append(table.amount_users)
-            self.array_of_bets.append(table.min_bet)
+            self.array_of_bets.append(0.5)

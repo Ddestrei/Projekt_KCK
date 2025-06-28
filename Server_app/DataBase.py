@@ -63,4 +63,13 @@ class DataBase:
         """, [album_number])
         fetch = self.cursor.fetchall()
         return User(fetch[0][0], fetch[0][1], fetch[0][2], fetch[0][3], fetch[0][4], fetch[0][5], fetch[0][6],
-                    fetch[0][7], fetch[0][8])
+                    fetch[0][7], fetch[0][8], self.change_points)
+
+    def change_points(self, album_number, points):
+        self.cursor.executemany("""
+            UPDATE users
+            SET points = ?
+            WHERE album_number = ?
+        """, [(points, album_number)])
+        self.connection.commit()
+        pass

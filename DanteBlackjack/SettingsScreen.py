@@ -6,8 +6,9 @@ from slider import *
 
 
 class SettingsScreen(Screen):
-    def __init__(self):
-        self.initial_val = 0.3
+    def __init__(self, music):
+        self.initial_val = 0.1
+        self.music = music
 
     def Start(self, window, choice):
         pygame.time.Clock().tick(60)
@@ -26,6 +27,7 @@ class SettingsScreen(Screen):
 
         if slider.container_rect.collidepoint(mouse_pos) and pygame.mouse.get_pressed()[0]:
             self.initial_val = slider.move_slider(mouse_pos)/100
+            self.music.set_volume(self.initial_val)
         slider.slider_render(window)
         SettingsScreen_back.tool_draw(window)
 

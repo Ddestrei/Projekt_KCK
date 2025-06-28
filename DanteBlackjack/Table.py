@@ -4,10 +4,9 @@ from Player import Player
 
 class Table:
 
-    def __init__(self, min_bet: int, table_id: int, amount_users: int):
+    def __init__(self, table_id: int, amount_users: int):
         self.table_id = table_id
         self.users_name = []
-        self.min_bet = min_bet
         self.amount_users = amount_users
         self.dealer = Dealer()
 

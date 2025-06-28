@@ -5,7 +5,7 @@ from Player import Player
 
 class User:
     def __init__(self, name: string, album_number: string, email: string, password: string, points: int,
-                 help_points: int, wins: int, loses: int, is_admin: int):
+                 help_points: int, wins: int, loses: int, is_admin: int, change_points):
         self.name = name
         self.album_number = album_number
         self.email = email
@@ -23,6 +23,7 @@ class User:
         self.hit = False
         self.stand = False
         self.double = False
+        self.change_points = change_points
 
     def add_sender_and_receiver(self, sender, receiver):
         self.sender = sender

@@ -1,43 +1,43 @@
 from time import sleep
 
-
-from DanteStartScreen import *
+# ustawienie klienta
 from DanteBlackjackStartScreen import *
+from DanteScreen import *
+from DanteStartScreen import *
+from DanteTaskScreen import *
+from DanteWorkScreen import *
+from GameScreen import GameScreen
 from LobbyScreen import *
 from LoginDanteScreen import *
 from RulesScreen import *
-from DanteScreen import *
-from DanteTaskScreen import *
-from DanteWorkScreen import *
 from SettingsScreen import *
 from StatisticsScreen import *
-from GameScreen import GameScreen
-import Task
-# ustawienie klienta
-from Client import Client
 from TableManager import TableManager
+
 client = Client()
 tableManager = TableManager()
 client.set_table_manager(tableManager=tableManager)
 
 window = pygame.display.set_mode(resolutions[choice])
 
+music = pygame.mixer.Sound(music_path)
+music.set_volume(0.1)
+
 login_dante_screen = LoginDanteScreen(client)
 dante_start_screen = DanteStartScreen()
 dante_blackjack_start_screen = DanteBlackjackStartScreen(client)
 lobby_screen = LobbyScreen(client)
 rules_screen = RulesScreen()
+current_screen = login_dante_screen
 game_screen = GameScreen(client)
 dante_screen = DanteScreen()
 dante_task_screen = DanteTaskScreen()
 dante_work_screen = DanteWorkScreen()
-settings_screen = SettingsScreen()
+settings_screen = SettingsScreen(music)
 statistics_screen = StatisticsScreen()
-current_screen = login_dante_screen
 button_stop = False
 
-#Creating basic text for blackjack
-music = pygame.mixer.Sound(music_path)
+# Creating basic text for blackjack
 
 running = True
 
@@ -127,17 +127,21 @@ while running:
             if current_screen == lobby_screen:
                 current_screen.Start(window, choice)
                 if current_screen.lobby_add_table is not None and current_screen.lobby_add_table.tool_click_left():
-                        client.create_table(1)
-                        sleep(2)
-                        game_screen.set_table(client.table)
-                        current_screen = game_screen
+                    client.create_table()
+                    sleep(5)
+                    game_screen.set_table(client.table)
+                    current_screen = game_screen
                 if current_screen != game_screen:
                     for i in range(len(current_screen.table_button_array)):
                         if current_screen.table_button_array[i].tool_click_left() and button_stop == False:
+                            client.join_to_table(current_screen.tables[i].table_id)
+                            sleep(5)
+                            game_screen.set_table(client.table)
+                            current_screen = game_screen
                             print(i)
             if lobby_to_Menu_button.tool_click_left() and current_screen == lobby_screen:
                 current_screen = dante_blackjack_start_screen
-            #if current_screen == GameScreen:
+            # if current_screen == GameScreen:
             #    GameScreen.Start(window, choice)
         if current_screen == dante_blackjack_start_screen:
             music.play(-1)

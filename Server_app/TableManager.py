@@ -3,7 +3,7 @@ from time import sleep
 
 from Table import Table
 from User import User
-
+import threading
 
 class TableManager:
 
@@ -13,14 +13,15 @@ class TableManager:
         self.add_table_info = add_table_info
         self.add_user_to_table = add_user_to_table
 
-    def add_table(self, min_bet: int, user: User):
-        table = Table(min_bet, table_id=self.counter, user=user)
+    def add_table(self, user: User):
+        table = Table(table_id=self.counter, user=user)
         self.tables.append(table)
         self.counter += 1
         self.add_table_info(table)
         sleep(1)
         user.sender("YOU_CREAT_YOU_JOIN" + " " + str(table.table_id))
-        table.game()
+        game_thread = threading.Thread(target=table.game, args=())
+        game_thread.start()
 
     # Dodaje użytkowniak do stołu jeżeli stół o takim_id nie istnieje zwrazany jest False
     def add_player_to_table(self, table_id: int, user: User):
@@ -46,8 +47,8 @@ class TableManager:
 
     def return_players_names_in_table(self, table_id: int):
         table = self.find_table_by_id(table_id=table_id)
-        names = " "
         for user in table.users:
+            names = " "
             names += user.name
             names += " "
             names += user.album_number
@@ -58,4 +59,3 @@ class TableManager:
             if t.table_id == table_id:
                 return t
         return None
-

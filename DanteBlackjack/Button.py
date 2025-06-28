@@ -30,6 +30,16 @@ y_button = 94
 x_button, y_button = scale_position(x_button, y_button, choice)
 house_button = Button(x_button, y_button, "house.png")
 
+x_button = 512
+y_button = 95
+x_button, y_button = scale_position(x_button, y_button, choice)
+wiwd = Button(x_button, y_button, "wiwd.png")
+
+x_button = 262
+y_button = 95
+x_button, y_button = scale_position(x_button, y_button, choice)
+pp1 = Button(x_button, y_button, "pp1.png")
+
 x_button = 1140
 y_button = 289
 x_button, y_button = scale_position(x_button, y_button, choice)

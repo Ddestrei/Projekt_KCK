@@ -11,4 +11,6 @@ class DanteTaskScreen(Screen):
         do_3.tool_draw(window)
         do_4.tool_draw(window)
         do_5.tool_draw(window)
+        wiwd.tool_draw(window)
+        pp1.tool_draw(window)
         pygame.display.update()

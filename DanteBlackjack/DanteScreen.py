@@ -7,5 +7,6 @@ class DanteScreen(Screen):
         window.blit(Dante_background, (0, 0))
         house_button.tool_draw(window)
         task_list_button.tool_draw(window)
+        pp1.tool_draw(window)
         pygame.display.update()
 

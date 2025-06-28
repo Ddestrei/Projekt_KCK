@@ -6,6 +6,8 @@ class DanteWorkScreen(Screen):
         task_background = pygame.transform.scale(task_background, (resolutions[choice]))
         window.blit(task_background, (0, 0))
         house_button.tool_draw(window)
+        wiwd.tool_draw(window)
+        pp1.tool_draw(window)
         if Task.task_number == 0:
             task_1.hide()
             task_2.hide()

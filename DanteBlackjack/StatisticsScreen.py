@@ -8,7 +8,7 @@ class StatisticsScreen(Screen):
     def __init__(self):
         self.start_poz_x = 126
         self.start_poz_y = 60
-        self.USERS = [("Adrian", "123456", 3, 5, 5),
+        self.USERS = [("Adrian", "123456", 3, 5, 5), # < -- information from server
                       ("Maciej", "654321", 2, 3, 0),
                       ("Dorota", "135790", 6, 2, 5),
                       ("Andrzej", "323223", 6, 2, 5),

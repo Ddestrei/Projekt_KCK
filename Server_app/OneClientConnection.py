@@ -19,6 +19,9 @@ class OneClientConnection:
         receiver_thread = threading.Thread(target=self.receiver)
         receiver_thread.start()
 
+    def __del__(self):
+        self.dataBase.set_login(self.user.album_number, 0)
+
     def receiver(self):
         while self.is_connected:
             mess = str(self.conn.recv(1024).decode())
@@ -37,10 +40,12 @@ class OneClientConnection:
             nr_album = mess_parts[1]
             password = mess_parts[2]
             self.user = self.dataBase.get_user(nr_album)
-            self.user.add_sender_and_receiver(self.sender, self.receiver)
             if self.user is None or self.user.password != password or self.user.is_logged:
+                if self.user is not None:
+                    self.dataBase.set_login(self.user.album_number, 0)
                 self.sender("cannot_log_in")
             else:
+                self.user.add_sender_and_receiver(self.sender, self.receiver)
                 self.sender(self.user.send_format())
                 self.sender(self.tableManager.send_tables())
         elif mess_parts[0] == "create_table":

@@ -137,8 +137,10 @@ while running:
                 current_screen = dante_blackjack_start_screen
 
             # ekran statystyk
-            if StatisticsButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
-                current_screen = statistics_screen
+            if client.user is not None:
+                if client.user.is_admin == 1:
+                    if StatisticsButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
+                        current_screen = statistics_screen
 
             if StatisticsScreen_back.tool_click_left() and current_screen == statistics_screen:
                 current_screen = dante_blackjack_start_screen

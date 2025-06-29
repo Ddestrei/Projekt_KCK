@@ -7,16 +7,19 @@ from Client import Client
 
 class DanteBlackjackStartScreen(Screen):
     def __init__(self, client: Client):
-        self.IsAdmin = None
         self.points = None
         self.name = None
         self.client = client
+        self.IsAdmin = False
 
     def Start(self, window, choice):
         # dodanie informacji o użytkowniku
         self.name = self.client.user.name
         self.points = self.client.user.points
-        self.IsAdmin = self.client.user.is_admin
+        if self.client.user.is_admin == 1:
+            self.IsAdmin = True
+        else:
+            self.IsAdmin = False
         pygame.time.Clock().tick(60)
         background = pygame.image.load(StartScreenPath)
         background = pygame.transform.scale(background, (resolutions[choice]))
@@ -54,9 +57,8 @@ class DanteBlackjackStartScreen(Screen):
         RulesButton.tool_draw(window)
         SettingsButton.tool_draw(window)
         ExitGameButton.tool_draw(window)
-        StatisticsButton.tool_draw(window)
 
-        # if self.IsAdmin:  < -- add this later
-        #     StatisticsButton.tool_draw(window)
+        if self.IsAdmin:
+            StatisticsButton.tool_draw(window)
 
         pygame.display.update()

@@ -216,7 +216,7 @@ class GameScreen(Screen):
                 self.client.user.hit_stand_double = False
         else:
             if self.client.drow is True:
-                self.add_text("Drow", text_Bold, self.screen, halfWidth, 100, red)
+                self.add_text("Draw", text_Bold, self.screen, halfWidth, 100, red)
             elif self.client.win is True:
                 self.add_text("Win", text_Bold, self.screen, halfWidth, 100, red)
             elif self.client.lose is True:

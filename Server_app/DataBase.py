@@ -8,7 +8,8 @@ USERS = [("Adrian", "123456", "123456@edu.p.lodz.pl", "password", 10, 3, 5, 5, 0
          ("Maciej", "654321", "654321@edu.p.lodz.pl", "password", 11, 2, 3, 0, 1, 0),
          ("Dorota", "135790", "135790@edu.p.lodz.pl", "password", 18, 6, 2, 5, 0, 0),
          ("Andrzej", "323223", "323223@edu.p.lodz.pl", "password", 18, 6, 2, 5, 0, 0),
-         ("Marek", "543255", "543255@edu.p.lodz.pl", "password", 18, 6, 2, 5, 0, 0), ]
+         ("Marek", "543255", "543255@edu.p.lodz.pl", "password", 18, 6, 2, 5, 0, 0),
+         ("Filip", "098765", "098765@edu.p.lodz.pl", "password", 0, 0, 0, 0, 0, 0),]
 
 
 class DataBase:

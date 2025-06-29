@@ -114,14 +114,17 @@ while running:
             if mode_0_button.tool_click_left() and current_screen == dante_work_screen:
                 Task.work_mode = 0
             if unlock_button.tool_click_left() and current_screen == dante_work_screen and torch_table[Task.task_number-1] == 0:
-                torch_table[Task.task_number-1] = 1
+                if client.user.points >= 2:
+                    client.user.points -= 2
+                    torch_table[Task.task_number-1] = 1
 
             # ekran startu gry
             if ExitGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = dante_start_screen
             if StartGameButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
-                button_stop = True
-                current_screen = lobby_screen
+                if client.user.points > 0.5:
+                    button_stop = True
+                    current_screen = lobby_screen
             # ekran zasad
             if RulesButton.tool_click_left() and current_screen == dante_blackjack_start_screen:
                 current_screen = rules_screen

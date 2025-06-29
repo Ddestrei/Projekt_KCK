@@ -64,7 +64,7 @@ class DataBase:
         fetch = self.cursor.fetchall()
         if fetch[0][9] == 1:
             return None
-        self.set_login(fetch[0][1], 1)
+        self.set_login(fetch[0][1], 0)
         return User(fetch[0][0], fetch[0][1], fetch[0][2], fetch[0][3], fetch[0][4], fetch[0][5], fetch[0][6],
                     fetch[0][7], fetch[0][8], self.change_points)
 

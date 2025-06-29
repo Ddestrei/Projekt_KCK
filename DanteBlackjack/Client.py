@@ -37,6 +37,9 @@ class Client:
         self.receiver_thread = threading.Thread(target=self.receiver)
         self.receiver_thread.start()
         self.table = None
+        self.win = False
+        self.lose = False
+        self.drow = False
 
     def receiver(self):
         while self.is_connected:
@@ -82,6 +85,9 @@ class Client:
             self.user.hit_stand_double = True
         elif mess_parts[0] == "PLACE_BET":
             self.user.placing_bets = True
+            self.win = False
+            self.lose =False
+            self.drow = False
         elif mess_parts[0] == "USER_USE_HIT_GET_NEXT_CARD":
             player = self.table.find_player_by_album_number(mess_parts[1])
             player.add_card(mess_parts[2], mess_parts[3], mess_parts[4], mess_parts[5])
@@ -93,8 +99,12 @@ class Client:
             self.table.dealer.hide_second_card = False
         elif mess_parts[0] == "WIN":
             self.user.points += float(mess_parts[1])
+            self.win = True
         elif mess_parts[0] == "LOSE":
             self.user.points -= float(mess_parts[1])
+            self.lose = True
+        elif mess_parts[0] == "DROW":
+            self.drow = True
         elif mess_parts[0] == "DEALER_GET_ANOTHER_CARD":
             self.table.dealer.add_card(mess_parts[1], mess_parts[2], mess_parts[3], mess_parts[4])
 
